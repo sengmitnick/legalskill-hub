@@ -8,6 +8,7 @@ import TomSelectController from "./tom_select_controller"
 import FlatpickrController from "./flatpickr_controller"
 import SystemMonitorController from "./system_monitor_controller"
 import FlashController from "./flash_controller"
+import WechatLoginController from "./wechat_login_controller"
 
 const application = Application.start()
 
@@ -19,5 +20,6 @@ application.register("tom-select", TomSelectController)
 application.register("flatpickr", FlatpickrController)
 application.register("system-monitor", SystemMonitorController)
 application.register("flash", FlashController)
+application.register("wechat-login", WechatLoginController)
 
 window.Stimulus = application

@@ -87,6 +87,43 @@
         <% end %>
       </div>
 
+      <!-- WeChat QR Login -->
+      <div class="tech-divider my-6">微信扫码登录</div>
+
+      <div data-controller="wechat-login"
+           class="flex flex-col items-center gap-3 py-2">
+
+        <%# QR code image %>
+        <div class="relative w-40 h-40 border border-border bg-surface flex items-center justify-center">
+          <%# Loading spinner (shown until QR loads) %>
+          <div data-wechat-login-target="loadingSpinner"
+               class="absolute inset-0 flex items-center justify-center">
+            <div class="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+          </div>
+
+          <img data-wechat-login-target="qrImage"
+               src=""
+               alt="微信登录二维码"
+               class="hidden w-full h-full object-contain" />
+        </div>
+
+        <%# Status text %>
+        <p data-wechat-login-target="status"
+           class="font-mono text-xs text-muted text-center">正在生成二维码…</p>
+
+        <%# Countdown %>
+        <p class="font-mono text-xs text-muted/60">
+          二维码有效期：<span data-wechat-login-target="countdown" class="text-primary">60s</span>
+        </p>
+
+        <%# Refresh button (hidden until expired) %>
+        <button data-wechat-login-target="refreshBtn"
+                data-action="click->wechat-login#refresh"
+                class="hidden btn-ghost btn-sm font-mono text-xs tracking-wider">
+          刷新二维码
+        </button>
+      </div>
+
       <!-- Footer links -->
       <div class="mt-8 pt-6 border-t border-border flex items-center justify-between text-xs font-mono text-muted">
         <%= link_to "忘记密码", new_identity_password_reset_path, class: "hover:text-primary transition-colors tracking-wider" %>

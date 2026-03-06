@@ -101,6 +101,21 @@ class User < ApplicationRecord
     password_digest.blank? || password.present?
   end
 
+  # Find or create a user by WeChat openid.
+  # New users get a generated email and no password (wechat-only account).
+  def self.from_wechat(openid)
+    user = find_by(wechat_openid: openid)
+    return user if user
+
+    create!(
+      wechat_openid: openid,
+      email:         generate_email("wx_#{openid.last(8)}"),
+      name:          "微信用户",
+      provider:      "wechat",
+      verified:      false
+    )
+  end
+
   # write your own code here
 
 end

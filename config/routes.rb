@@ -72,6 +72,14 @@ Rails.application.routes.draw do
 
   # Authentication routes generated end
 
+  # WeChat MP login routes
+  namespace :wechat do
+    get  'mp', to: 'mp#verify'
+    post 'mp', to: 'mp#callback'
+    get  'qrcode', to: 'qrcode#show'
+    get  'check',  to: 'qrcode#check'
+  end
+
   # write your business logic routes here
 
   # API routes
