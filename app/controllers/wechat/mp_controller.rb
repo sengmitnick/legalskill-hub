@@ -6,6 +6,9 @@ class Wechat::MpController < ApplicationController
   skip_before_action :authenticate_user!, raise: false
 
   def verify
+    # HEAD requests from WeChat health checks have no params — return 200 immediately
+    return head :ok if request.head?
+
     service = WechatMpService.new
 
     token     = ENV.fetch("WECHAT_MP_TOKEN", "")

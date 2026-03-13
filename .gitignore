@@ -61,3 +61,6 @@ yarn-debug.log*
 /.breakpoints
 /*rules
 !/.clackyrules
+
+# WeChat Pay certificates (sensitive)
+certs/
