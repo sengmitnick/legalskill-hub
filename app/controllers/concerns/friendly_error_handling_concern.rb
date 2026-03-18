@@ -23,6 +23,12 @@ module FriendlyErrorHandlingConcern
   end
 
   def handle_routing_error
+    # Silently ignore favicon and well-known probes
+    if request.path == '/favicon.ico' || request.path.start_with?('/.well-known/')
+      head :no_content
+      return
+    end
+
     Rails.logger.error("404 - Path not found: #{request.method} #{request.path}")
 
     if request.format.json?
@@ -35,8 +41,11 @@ module FriendlyErrorHandlingConcern
       @error_url = request.path
       @error_title = "Page Not Found"
       @error_description = "If you confirm this is missing implementation, please copy error details and send to chatbox."
-      render "shared/friendly_error", status: :not_found
+      render "shared/friendly_error", status: :not_found, layout: "application"
     end
+  rescue => e
+    Rails.logger.error("handle_routing_error itself failed: #{e.message}")
+    head :not_found
   end
 
   private

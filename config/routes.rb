@@ -131,6 +131,7 @@ Rails.application.routes.draw do
   match '*path', to: 'application#handle_routing_error', via: :all,
     constraints: lambda { |request|
       !request.path.start_with?('/rails/active_storage') &&
-      !request.path.start_with?('/.well-known/')
+      !request.path.start_with?('/.well-known/') &&
+      request.path != '/favicon.ico'
     }
 end
