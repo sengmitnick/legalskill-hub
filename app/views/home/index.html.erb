@@ -126,12 +126,17 @@
               </tr>
             <% elsif v3 == :discount %>
               <tr>
-                <td class="py-2 pr-6 border-b border-border/30"></td>
-                <td class="py-2 px-6 border-b border-border/30"></td>
-                <td class="py-2 px-6 border-b border-border/30" style="background: hsl(174,100%,44%,0.04);"></td>
+                <td class="py-2 pr-6 border-b border-border/30 text-sm font-mono font-medium text-primary">每天花费</td>
+                <td class="py-2 px-6 text-center border-b border-border/30">
+                  <div class="text-sm font-mono text-muted">≈ <span class="text-primary font-bold">5.5</span> 元 / 天</div>
+                </td>
+                <td class="py-2 px-6 text-center border-b border-border/30">
+                  <div class="text-sm font-mono text-muted">≈ <span class="text-primary font-bold">8.2</span> 元 / 天</div>
+                </td>
                 <td class="py-2 px-6 text-center border-b border-border/30" style="background: hsl(174,100%,44%,0.04);">
-                  <div class="text-sm text-muted line-through font-mono mb-1">原价 5998 元</div>
-                  <div class="inline-block text-xs px-2 py-0.5 font-mono font-medium" style="background: hsl(174,100%,44%,0.12); color: hsl(174,100%,44%)">立减 2000 元</div>
+                  <div class="text-sm font-mono text-muted mb-1">≈ <span class="font-bold" style="color:hsl(174,100%,44%)">10.9</span> 元 / 天</div>
+                  <div class="text-xs text-muted line-through font-mono">原价 5998 元</div>
+                  <div class="inline-block text-xs mt-1 px-2 py-0.5 font-mono font-medium" style="background: hsl(174,100%,44%,0.12); color: hsl(174,100%,44%)">立减 2000 元</div>
                 </td>
               </tr>
             <% else %>
