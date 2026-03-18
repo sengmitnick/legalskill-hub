@@ -5,16 +5,25 @@ class Wechat::QrcodeController < ApplicationController
   skip_before_action :authenticate_user!, raise: false
 
   def show
-    service = WechatMpService.new
-    data    = service.create_qrcode
-    render json: {
-      ticket:         data[:ticket],
-      qrcode_url:     "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=#{CGI.escape(data[:ticket])}",
-      expire_seconds: data[:expire_seconds]
-    }
+    # HTML 请求 → 渲染登录页（由前端 JS 自动获取二维码）
+    respond_to do |format|
+      format.html { render :show }
+      format.json do
+        service = WechatMpService.new
+        data    = service.create_qrcode
+        render json: {
+          ticket:         data[:ticket],
+          qrcode_url:     "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=#{CGI.escape(data[:ticket])}",
+          expire_seconds: data[:expire_seconds]
+        }
+      end
+    end
   rescue => e
     Rails.logger.error("WeChat QR error: #{e.message}")
-    render json: { error: "二维码生成失败，请稍后重试" }, status: :service_unavailable
+    respond_to do |format|
+      format.html { redirect_to root_path, alert: "二维码生成失败，请稍后重试" }
+      format.json { render json: { error: "二维码生成失败，请稍后重试" }, status: :service_unavailable }
+    end
   end
 
   def check

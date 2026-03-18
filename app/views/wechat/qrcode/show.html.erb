@@ -1,0 +1,64 @@
+<% content_for :title, "微信登录 — 青狮龙虾" %>
+
+<div class="min-h-screen flex items-center justify-center bg-base px-4">
+  <div class="w-full max-w-sm">
+
+    <!-- Logo -->
+    <div class="text-center mb-8">
+      <h1 class="font-mono text-2xl font-bold text-primary tracking-widest">青狮龙虾</h1>
+      <p class="text-sm text-muted font-mono mt-1">律师 AI 助手</p>
+    </div>
+
+    <!-- 二维码卡片 -->
+    <div class="card p-8 text-center" data-controller="wechat-login">
+
+      <h2 class="text-base font-bold font-mono text-foreground mb-1">微信扫码登录</h2>
+      <p class="text-xs text-muted font-mono mb-6">打开微信 → 扫一扫</p>
+
+      <!-- 二维码区域 -->
+      <div class="relative inline-block mb-4">
+        <!-- Loading spinner -->
+        <div data-wechat-login-target="loadingSpinner"
+             class="w-48 h-48 flex items-center justify-center border border-border rounded-lg bg-surface">
+          <svg class="animate-spin w-8 h-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+          </svg>
+        </div>
+
+        <!-- 二维码图片 -->
+        <img data-wechat-login-target="qrImage"
+             src=""
+             alt="微信登录二维码"
+             class="hidden w-48 h-48 rounded-lg border border-border" />
+      </div>
+
+      <!-- 状态文字 -->
+      <p data-wechat-login-target="status"
+         class="text-sm font-mono text-muted mb-2">正在生成二维码…</p>
+
+      <!-- 倒计时 -->
+      <p class="text-xs font-mono text-muted/60 mb-4">
+        有效期 <span data-wechat-login-target="countdown" class="text-primary">--</span>
+      </p>
+
+      <!-- 刷新按钮（过期后显示） -->
+      <button data-wechat-login-target="refreshBtn"
+              data-action="click->wechat-login#refresh"
+              class="hidden btn-outline btn-sm font-mono text-xs tracking-widest w-full">
+        <%= lucide_icon "refresh-cw", class: "w-3.5 h-3.5 inline-block mr-1" %>
+        刷新二维码
+      </button>
+
+    </div>
+
+    <!-- 底部说明 -->
+    <p class="text-center text-xs text-muted font-mono mt-6">
+      扫码即表示同意
+      <a href="#" class="text-primary hover:underline">服务条款</a>
+      与
+      <a href="#" class="text-primary hover:underline">隐私政策</a>
+    </p>
+
+  </div>
+</div>
