@@ -122,10 +122,10 @@
               </tr>
             <% else %>
               <tr class="<%= i.even? ? 'bg-surface-elevated/20' : '' %>">
-                <td class="py-3 pr-6 text-xs text-muted border-b border-border/30"><%= label %></td>
-                <td class="py-3 px-6 text-center text-sm border-b border-border/30 text-secondary"><%= v1 %></td>
-                <td class="py-3 px-6 text-center text-sm border-b border-border/30 font-semibold" style="background: hsl(174,100%,44%,0.04);"><%= v2 %></td>
-                <td class="py-3 px-6 text-center text-sm border-b border-border/30 text-secondary"><%= v3 %></td>
+                <td class="py-3 pr-6 text-sm font-mono font-medium text-primary border-b border-border/30"><%= label %></td>
+                <td class="py-3 px-6 text-center text-sm border-b border-border/30 text-secondary"><%= raw v1.gsub("✅", "<span style='color:hsl(174,100%,44%)'>✓</span>") %></td>
+                <td class="py-3 px-6 text-center text-sm border-b border-border/30 font-semibold" style="background: hsl(174,100%,44%,0.04);"><%= raw v2.gsub("✅", "<span style='color:hsl(174,100%,44%)'>✓</span>") %></td>
+                <td class="py-3 px-6 text-center text-sm border-b border-border/30 text-secondary"><%= raw v3.gsub("✅", "<span style='color:hsl(174,100%,44%)'>✓</span>") %></td>
               </tr>
             <% end %>
           <% end %>
