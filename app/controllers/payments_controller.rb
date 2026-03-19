@@ -14,7 +14,7 @@ class PaymentsController < ApplicationController
       # Render turbo stream to redirect to Stripe checkout
       render formats: [:turbo_stream]
     else
-      flash[:alert] = "Payment initialization failed: #{result[:error]}"
+      flash[:alert] = "支付初始化失败：#{result[:error]}"
       redirect_to root_path
     end
   end
@@ -29,13 +29,13 @@ class PaymentsController < ApplicationController
     end
 
     unless @payment.paid?
-      redirect_to root_path, alert: 'Payment was not paid. Please try again.'
+      redirect_to root_path, alert: '支付未完成，请重试'
       return
     end
   end
 
   def failure
-    redirect_to root_path, alert: 'Payment was canceled or failed. Please try again.'
+    redirect_to root_path, alert: '支付已取消或失败，请重试'
   end
 
   # Stripe webhook endpoint
@@ -62,7 +62,7 @@ class PaymentsController < ApplicationController
     @payment = Payment.find(params[:id])
 
     unless @payment.user == current_user || @payment.payable.try(:user) == current_user
-      redirect_to root_path, alert: 'Access denied'
+      redirect_to root_path, alert: '无权访问'
     end
   end
 end

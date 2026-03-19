@@ -16,7 +16,7 @@ class Admin::VideoResourcesController < Admin::BaseController
     @video_resource = VideoResource.new(video_resource_params)
 
     if @video_resource.save
-      redirect_to admin_video_resource_path(@video_resource), notice: 'Video resource was successfully created.'
+      redirect_to admin_video_resource_path(@video_resource), notice: '视频资源已创建'
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Admin::VideoResourcesController < Admin::BaseController
 
   def update
     if @video_resource.update(video_resource_params)
-      redirect_to admin_video_resource_path(@video_resource), notice: 'Video resource was successfully updated.'
+      redirect_to admin_video_resource_path(@video_resource), notice: '视频资源已更新'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class Admin::VideoResourcesController < Admin::BaseController
 
   def destroy
     @video_resource.destroy
-    redirect_to admin_video_resources_path, notice: 'Video resource was successfully deleted.'
+    redirect_to admin_video_resources_path, notice: '视频资源已删除'
   end
 
   private

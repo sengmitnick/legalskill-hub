@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
     if session_record = find_session_record
       Current.session = session_record
     else
-      redirect_to sign_in_path, alert: 'Please sign in to continue'
+      redirect_to sign_in_path, alert: '请先登录后再继续'
     end
   end
 

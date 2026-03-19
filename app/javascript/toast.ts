@@ -29,7 +29,7 @@ function showToast(
   const alertType = (type === 'error' || type === 'danger') ? 'danger' : type
 
   const toastElement = document.createElement('div')
-  toastElement.className = `alert-${alertType} pointer-events-auto max-w-md shadow-lg transform transition-all duration-300 ease-out translate-x-0 opacity-100 !py-2 !px-3`
+  toastElement.className = `alert-${alertType} pointer-events-auto max-w-sm shadow-xl transform transition-all duration-300 ease-out translate-x-0 opacity-100 !py-3 !px-4 rounded-xl`
 
   toastElement.innerHTML = `
     <div class="flex items-center gap-2">

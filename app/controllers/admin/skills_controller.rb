@@ -17,7 +17,7 @@ class Admin::SkillsController < Admin::BaseController
     @skill = Skill.new(skill_params)
 
     if @skill.save
-      redirect_to admin_skill_path(@skill), notice: 'Skill was successfully created.'
+      redirect_to admin_skill_path(@skill), notice: '技能已创建'
     else
       render :new, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ class Admin::SkillsController < Admin::BaseController
 
   def update
     if @skill.update(skill_params)
-      redirect_to admin_skill_path(@skill), notice: 'Skill was successfully updated.'
+      redirect_to admin_skill_path(@skill), notice: '技能已更新'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class Admin::SkillsController < Admin::BaseController
 
   def destroy
     @skill.destroy
-    redirect_to admin_skills_path, notice: 'Skill was successfully deleted.'
+    redirect_to admin_skills_path, notice: '技能已删除'
   end
 
   private

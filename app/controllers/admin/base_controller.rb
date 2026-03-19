@@ -22,7 +22,7 @@ class Admin::BaseController < ActionController::Base
     end
 
     if current_admin.password_digest != session[:current_admin_token]
-      redirect_to admin_login_path, alert: 'Password was changed, please log in again'
+      redirect_to admin_login_path, alert: '密码已更改，请重新登录'
       return
     end
   end

@@ -10,12 +10,12 @@ class Admin::AccountsController < Admin::BaseController
 
       if current_admin.update(update_params)
         admin_sign_out
-        redirect_to admin_login_path, notice: 'Account has been updated, please log in again'
+        redirect_to admin_login_path, notice: '账号信息已更新，请重新登录'
       else
         render 'edit', status: :unprocessable_entity
       end
     else
-      flash.now[:alert] = 'Old password is wrong, try again'
+      flash.now[:alert] = '原密码不正确，请重试'
       render 'edit', status: :unprocessable_entity
     end
   end

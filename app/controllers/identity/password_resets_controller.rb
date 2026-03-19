@@ -11,15 +11,15 @@ class Identity::PasswordResetsController < ApplicationController
   def create
     if @user = User.find_by(email: params[:user][:email], verified: true)
       send_password_reset_email
-      redirect_to sign_in_path, notice: "Check your email for reset instructions"
+      redirect_to sign_in_path, notice: "重置邮件已发送，请查收邮箱"
     else
-      redirect_to new_identity_password_reset_path, alert: "You can't reset your password until you verify your email"
+      redirect_to new_identity_password_reset_path, alert: "请先验证您的邮箱后再重置密码"
     end
   end
 
   def update
     if @user.update(user_params)
-      redirect_to sign_in_path, notice: "Your password was reset successfully. Please sign in"
+      redirect_to sign_in_path, notice: "密码已重置，请重新登录"
     else
       flash.now[:alert] = handle_password_errors(@user)
       render :edit, status: :unprocessable_entity

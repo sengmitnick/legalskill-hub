@@ -16,7 +16,7 @@ class Admin::ResourcesController < Admin::BaseController
     @resource = Resource.new(resource_params)
 
     if @resource.save
-      redirect_to admin_resource_path(@resource), notice: 'Resource was successfully created.'
+      redirect_to admin_resource_path(@resource), notice: '资源已创建'
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Admin::ResourcesController < Admin::BaseController
 
   def update
     if @resource.update(resource_params)
-      redirect_to admin_resource_path(@resource), notice: 'Resource was successfully updated.'
+      redirect_to admin_resource_path(@resource), notice: '资源已更新'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class Admin::ResourcesController < Admin::BaseController
 
   def destroy
     @resource.destroy
-    redirect_to admin_resources_path, notice: 'Resource was successfully deleted.'
+    redirect_to admin_resources_path, notice: '资源已删除'
   end
 
   private

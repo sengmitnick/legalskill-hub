@@ -8,7 +8,7 @@ class InvitationsController < ApplicationController
 
     if @user.save
       send_invitation_instructions
-      redirect_to new_invitation_path, notice: "An invitation email has been sent to #{@user.email}"
+      redirect_to new_invitation_path, notice: "邀请邮件已发送至 #{@user.email}"
     else
       flash.now[:alert] = handle_password_errors(@user)
       render :new, status: :unprocessable_entity
