@@ -51,6 +51,6 @@ class Admin::DeliveredSkillsController < Admin::BaseController
   end
 
   def delivered_skill_params
-    params.require(:delivered_skill).permit(:name, :scenario, :time_saved, :demo_video_url)
+    params.require(:delivered_skill).permit(:name, :scenario, :ai_completion, :demo_video_url)
   end
 end

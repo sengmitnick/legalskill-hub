@@ -22,8 +22,7 @@
                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">序号</th>
                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">技能名称</th>
                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">场景</th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">节约时间</th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">等值价值</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">AI 完成度</th>
                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">视频演示</th>
                 <th class="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">排序</th>
                 <th class="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">操作</th>
@@ -41,11 +40,17 @@
                   <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300 max-w-xs">
                     <%= skill.scenario.present? ? truncate(skill.scenario, length: 40) : "—" %>
                   </td>
-                  <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">
-                    <%= skill.time_saved.present? ? skill.time_saved : "—" %>
-                  </td>
-                  <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">
-                    <%= skill.equivalent_value.present? ? skill.equivalent_value : "—" %>
+                  <td class="px-4 py-4">
+                    <% if skill.ai_completion.present? %>
+                      <div class="flex items-center gap-2 min-w-[120px]">
+                        <div class="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                          <div class="h-2 rounded-full bg-blue-500" style="width: <%= skill.ai_completion %>%"></div>
+                        </div>
+                        <span class="text-xs font-mono text-gray-600 dark:text-gray-300 w-8 text-right"><%= skill.ai_completion %>%</span>
+                      </div>
+                    <% else %>
+                      <span class="text-gray-400 text-sm">—</span>
+                    <% end %>
                   </td>
                   <td class="px-4 py-4 text-sm">
                     <% if skill.demo_video_url.present? %>

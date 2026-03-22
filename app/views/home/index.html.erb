@@ -213,8 +213,7 @@
               <th class="px-5 py-3 text-left text-xs font-mono font-medium text-muted uppercase tracking-widest w-16">序号</th>
               <th class="px-5 py-3 text-left text-xs font-mono font-medium text-muted uppercase tracking-widest">技能名称</th>
               <th class="px-5 py-3 text-left text-xs font-mono font-medium text-muted uppercase tracking-widest hidden md:table-cell">使用场景</th>
-              <th class="px-5 py-3 text-left text-xs font-mono font-medium text-muted uppercase tracking-widest hidden sm:table-cell">节约时间</th>
-              <th class="px-5 py-3 text-left text-xs font-mono font-medium text-muted uppercase tracking-widest hidden sm:table-cell">等值价值</th>
+              <th class="px-5 py-3 text-left text-xs font-mono font-medium text-muted uppercase tracking-widest hidden sm:table-cell">AI 完成度</th>
               <th class="px-5 py-3 text-center text-xs font-mono font-medium text-muted uppercase tracking-widest">演示</th>
             </tr>
           </thead>
@@ -230,11 +229,17 @@
                 <td class="px-5 py-4 text-sm text-secondary hidden md:table-cell max-w-xs">
                   <%= skill.scenario.present? ? skill.scenario : "—" %>
                 </td>
-                <td class="px-5 py-4 text-sm font-mono hidden sm:table-cell" style="color: hsl(174,100%,44%)">
-                  <%= skill.time_saved.present? ? skill.time_saved : "—" %>
-                </td>
-                <td class="px-5 py-4 text-sm font-mono hidden sm:table-cell" style="color: hsl(174,100%,44%)">
-                  <%= skill.equivalent_value.present? ? skill.equivalent_value : "—" %>
+                <td class="px-5 py-4 hidden sm:table-cell">
+                  <% if skill.ai_completion.present? %>
+                    <div class="flex items-center gap-2 min-w-[100px]">
+                      <div class="flex-1 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-1.5 rounded-full" style="width: <%= skill.ai_completion %>%; background: hsl(174,100%,44%)"></div>
+                      </div>
+                      <span class="text-xs font-mono w-8 text-right" style="color: hsl(174,100%,44%)"><%= skill.ai_completion %>%</span>
+                    </div>
+                  <% else %>
+                    <span class="text-muted/40 text-sm">—</span>
+                  <% end %>
                 </td>
                 <td class="px-5 py-4 text-center">
                   <% if skill.demo_video_url.present? %>
