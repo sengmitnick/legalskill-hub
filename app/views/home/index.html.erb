@@ -99,9 +99,90 @@
       <p class="text-secondary text-base max-w-xl mx-auto">线上交付 · 线下面对面 · 团购立减——总有一款适合你</p>
     </div>
 
-    <!-- 定价对比表 -->
-    <!-- 定价对比表 -->
-    <div class="relative overflow-x-auto pt-6 -mx-4 sm:mx-0 px-4 sm:px-0">
+    <!-- ===== 移动端卡片（手机专属，sm以上隐藏）===== -->
+    <div class="sm:hidden grid grid-cols-2 gap-3 mb-8">
+
+      <!-- 卡片1：方案一 -->
+      <div class="border border-border bg-surface-elevated p-4 flex flex-col">
+        <div class="text-xs text-muted tracking-widest uppercase font-mono mb-1">方案 1</div>
+        <div class="text-xs text-muted/60 mb-3">1 年期使用权</div>
+        <div class="text-xs text-muted font-mono mb-0.5" style="text-decoration:line-through;">原价 1999 元</div>
+        <div class="text-2xl font-bold text-primary font-mono mb-1">999<span class="text-xs font-normal text-muted ml-1">元</span></div>
+        <ul class="text-xs text-secondary space-y-1 mb-4 flex-1">
+          <li>· 纯工具，1 人</li>
+          <li>· 龙虾 1 只 / 1 年</li>
+          <li>· 免费线上课</li>
+        </ul>
+        <%= link_to wechat_qrcode_path, class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center justify-center gap-1.5 w-full" do %>
+          <%= lucide_icon "shopping-cart", class: "w-3.5 h-3.5" %>
+          立即购买
+        <% end %>
+      </div>
+
+      <!-- 卡片2：方案二 -->
+      <div class="border border-border bg-surface-elevated p-4 flex flex-col">
+        <div class="text-xs text-muted tracking-widest uppercase font-mono mb-1">方案 2</div>
+        <div class="text-xs text-muted/60 mb-3">线上课程 + 1 年期</div>
+        <div class="text-xs text-muted font-mono mb-0.5 invisible">&nbsp;</div>
+        <div class="text-2xl font-bold text-primary font-mono mb-1">1999<span class="text-xs font-normal text-muted ml-1">元</span></div>
+        <ul class="text-xs text-secondary space-y-1 mb-4 flex-1">
+          <li>· 线上课，1 人</li>
+          <li>· 龙虾 1 只 / 1 年</li>
+          <li>· 会议答疑 12 次+</li>
+        </ul>
+        <%= link_to wechat_qrcode_path, class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center justify-center gap-1.5 w-full" do %>
+          <%= lucide_icon "shopping-cart", class: "w-3.5 h-3.5" %>
+          立即购买
+        <% end %>
+      </div>
+
+      <!-- 卡片3：方案三（推荐，跨两列） -->
+      <div class="col-span-2 border p-4 flex flex-col" style="border-color:hsl(174,100%,44%); background:hsl(174,100%,44%,0.04);">
+        <div class="flex items-center gap-2 mb-1">
+          <div class="text-xs text-muted tracking-widest uppercase font-mono">方案 3</div>
+          <span class="text-xs font-mono px-1.5 py-0.5 rounded" style="background:hsl(174,100%,44%); color:#0a0f0d;">推荐</span>
+        </div>
+        <div class="text-xs text-muted/60 mb-3">线下课程 + 1 年期使用权</div>
+        <div class="flex items-end gap-4 mb-3">
+          <div>
+            <div class="text-2xl font-bold font-mono" style="color:hsl(174,100%,44%);">2999<span class="text-xs font-normal text-muted ml-1">元/人</span></div>
+            <div class="text-xs text-muted mt-0.5">人数越多越优惠，可调整</div>
+          </div>
+        </div>
+        <ul class="text-xs text-secondary space-y-1 mb-4 flex-1">
+          <li>· 线下课，龙虾 1 只 / 1 年</li>
+          <li>· 会议答疑 12 次+ · 远程服务</li>
+          <li>· 线下交付</li>
+        </ul>
+        <%= link_to wechat_qrcode_path, class: "btn-sm font-mono text-xs tracking-widest inline-flex items-center justify-center gap-1.5 w-full", style: "background:hsl(174,100%,44%); color:#0a0f0d; font-weight:700;" do %>
+          <%= lucide_icon "shopping-cart", class: "w-3.5 h-3.5" %>
+          立即购买
+        <% end %>
+      </div>
+
+      <!-- 卡片4：方案四（跨两列） -->
+      <div class="col-span-2 border border-border bg-surface-elevated p-4 flex flex-col">
+        <div class="text-xs text-muted tracking-widest uppercase font-mono mb-1">方案 4</div>
+        <div class="text-xs text-muted/60 mb-3">团队线下内训</div>
+        <div class="text-xs text-muted font-mono mb-0.5" style="text-decoration:line-through;">原价 2999 元/人</div>
+        <div class="text-2xl font-bold text-primary font-mono mb-1">1999<span class="text-xs font-normal text-muted ml-1">元/人</span></div>
+        <div class="text-xs text-muted mb-3">最低 15 人 · 龙虾 15 只</div>
+        <ul class="text-xs text-secondary space-y-1 mb-4 flex-1">
+          <li>· 线下内训，≤15 人</li>
+          <li>· 会议答疑 12 次+ · 远程服务</li>
+          <li>· 线下交付</li>
+        </ul>
+        <%= link_to wechat_qrcode_path, class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center justify-center gap-1.5 w-full" do %>
+          <%= lucide_icon "shopping-cart", class: "w-3.5 h-3.5" %>
+          立即购买
+        <% end %>
+      </div>
+
+    </div>
+    <!-- ===== END 移动端卡片 ===== -->
+
+    <!-- 定价对比表（sm及以上显示）-->
+    <div class="hidden sm:block relative overflow-x-auto pt-6">
 
       <table class="w-full font-mono text-sm border-separate border-spacing-0 min-w-[600px]">
         <thead>
@@ -248,6 +329,7 @@
         </tbody>
       </table>
     </div>
+    <!-- END hidden sm:block -->
 
     <!-- 底部补充说明 -->
     <p class="text-center text-xs font-mono text-muted/60 mt-8">
