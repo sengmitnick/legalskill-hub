@@ -156,10 +156,12 @@
             <th class="text-center py-5 px-4 border-b border-border w-[20%]">
               <div class="text-xs text-muted tracking-widest uppercase mb-2">方案 4</div>
               <div class="text-sm text-muted/60 mb-4">律所/律师团队内训</div>
-              <div class="text-sm text-muted line-through font-mono mb-0">原价 45000 元</div>
-              <div class="text-sm mb-1 invisible">&nbsp;</div>
-              <div class="text-3xl font-bold text-primary mb-1">30000<span class="text-sm font-normal text-muted ml-1">元/天</span></div>
-              <div class="text-xs text-muted invisible mb-3">&nbsp;</div>
+              <div id="plan4-origin-price" class="text-sm text-muted font-mono mb-0" style="text-decoration: line-through; visibility: hidden;">&nbsp;</div>
+              <div class="text-xs mb-1 invisible">&nbsp;</div>
+              <div class="text-3xl font-bold text-primary mb-1">
+                <span id="plan4-total">29985</span><span class="text-sm font-normal text-muted ml-1">元</span>
+              </div>
+              <div id="plan4-grand-total" class="text-xs text-muted mb-3"><span id="plan4-unit-price">1999</span> 元/人 · <span id="plan4-count-display">15</span> 人</div>
               <%= link_to wechat_qrcode_path, class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center gap-1.5 w-full justify-center" do %>
                 <%= lucide_icon "shopping-cart", class: "w-3.5 h-3.5" %>
                 立即购买
@@ -197,7 +199,9 @@
                 <td class="py-3 px-4 text-center text-sm border-b border-border/30 font-semibold" style="background: hsl(174,100%,44%,0.04);">
                   <span id="plan3-lobster-count">青狮龙虾 1 只</span>
                 </td>
-                <td class="py-3 px-4 text-center text-sm border-b border-border/30 text-secondary"><%= v4 %></td>
+                <td class="py-3 px-4 text-center text-sm border-b border-border/30 text-secondary">
+                  <span id="plan4-lobster-count">青狮龙虾 15 只</span>
+                </td>
               </tr>
             <% elsif label == "参加人数" %>
               <tr class="<%= i.even? ? 'bg-surface-elevated/20' : '' %>">
@@ -216,7 +220,18 @@
                   </div>
                   <div id="plan3-tip" class="text-xs font-mono" style="color: hsl(174,100%,44%); opacity: 0.85;">点击 + 享受团购价</div>
                 </td>
-                <td class="py-3 px-4 text-center text-sm border-b border-border/30 text-secondary"><%= v4 %></td>
+                <td class="py-2 px-3 text-center border-b border-border/30">
+                  <div class="flex items-center justify-center gap-2 mb-1">
+                    <button type="button" id="plan4-minus" onclick="updatePlan4(-1)"
+                      class="w-7 h-7 rounded-full flex items-center justify-center font-mono text-base font-bold transition-all leading-none"
+                      style="background: rgba(100,116,139,0.15); color: #64748b; border: 1.5px solid #64748b;">−</button>
+                    <span class="font-bold text-lg w-12 text-center text-primary"><span id="plan4-count">15</span> 人</span>
+                    <button type="button" id="plan4-plus" onclick="updatePlan4(1)"
+                      class="w-7 h-7 rounded-full flex items-center justify-center font-mono text-base font-bold transition-all leading-none"
+                      style="background: #64748b; color: #fff; border: 1.5px solid #64748b;">+</button>
+                  </div>
+                  <div id="plan4-tip" class="text-xs font-mono text-muted/70">最低 15 人起</div>
+                </td>
               </tr>
             <% else %>
               <tr class="<%= i.even? ? 'bg-surface-elevated/20' : '' %>">
@@ -641,5 +656,39 @@
   // 初始化状态
   document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('plan3-count')) { updatePlan3(0); }
+    if (document.getElementById('plan4-count')) { updatePlan4(0); }
   });
+
+  // 方案四
+  var plan4Count    = 15;
+  var plan4MinCount = 15;
+  var plan4UnitPrice = 1999;
+
+  function updatePlan4(delta) {
+    var countEl        = document.getElementById('plan4-count');
+    var countDisplayEl = document.getElementById('plan4-count-display');
+    var totalEl        = document.getElementById('plan4-total');
+    var minusEl        = document.getElementById('plan4-minus');
+    var plusEl         = document.getElementById('plan4-plus');
+    var tipEl          = document.getElementById('plan4-tip');
+    var lobsterEl      = document.getElementById('plan4-lobster-count');
+    if (!countEl || !totalEl) return;
+
+    plan4Count = Math.max(plan4MinCount, plan4Count + delta);
+    var total = plan4Count * plan4UnitPrice;
+
+    countEl.textContent        = plan4Count;
+    if (countDisplayEl) countDisplayEl.textContent = plan4Count;
+    totalEl.textContent        = total.toLocaleString();
+    if (lobsterEl) lobsterEl.textContent = '青狮龙虾 ' + plan4Count + ' 只';
+
+    if (tipEl) {
+      tipEl.textContent = plan4Count === plan4MinCount ? '最低 15 人起' : plan4Count + ' 人 · ' + plan4UnitPrice + ' 元/人';
+    }
+
+    if (minusEl) {
+      minusEl.style.opacity = plan4Count <= plan4MinCount ? '0.3' : '1';
+      minusEl.style.cursor  = plan4Count <= plan4MinCount ? 'not-allowed' : 'pointer';
+    }
+  }
 </script>
