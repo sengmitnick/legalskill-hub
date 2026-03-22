@@ -31,7 +31,7 @@
       <% end %>
       <% if @hero_video_url.present? %>
         <button
-          onclick="document.getElementById('hero-video-modal').classList.remove('hidden')"
+          onclick="document.getElementById('hero-video-modal').classList.remove('hidden');document.getElementById('hero-video-player').play()"
           class="btn-md font-mono text-sm tracking-widest inline-flex items-center gap-2"
           style="background: hsl(174,100%,44%); color: #0a0f0d; font-weight: 700;">
           <%= lucide_icon "play-circle", class: "w-4 h-4" %>
@@ -68,7 +68,6 @@
         id="hero-video-player"
         src="<%= @hero_video_url %>"
         controls
-        autoplay
         class="w-full h-full object-contain"
         style="display: block;">
       </video>
