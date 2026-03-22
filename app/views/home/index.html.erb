@@ -138,7 +138,7 @@
               <div class="text-sm text-muted/60 mb-4">线下课程+1年期使用权</div>
               <div class="text-sm mb-1 invisible" aria-hidden="true">&nbsp;</div>
               <div class="text-3xl font-bold mb-4" style="color: hsl(174,100%,44%)">
-                <span id="plan3-total">2999</span><span class="text-sm font-normal text-muted ml-1">元</span>
+                <span id="plan3-total">2999</span><span class="text-sm font-normal text-muted ml-1">元/人</span>
               </div>
               <%= link_to wechat_qrcode_path, class: "btn-sm font-mono text-xs tracking-widest inline-flex items-center gap-1.5 w-full justify-center", style: "background: hsl(174,100%,44%); color: #0a0f0d; font-weight: 700;" do %>
                 <%= lucide_icon "shopping-cart", class: "w-3.5 h-3.5" %>
@@ -567,11 +567,10 @@
 
     plan3Count = Math.max(1, Math.min(plan3MaxCount, plan3Count + delta));
     var unitPrice = plan3BasePrice - (plan3Count - 1) * plan3Discount;
-    var total = unitPrice * plan3Count;
     var totalSaved = (plan3Count - 1) * plan3Discount * plan3Count;
 
     countEl.textContent = plan3Count;
-    totalEl.textContent = total.toLocaleString();
+    totalEl.textContent = unitPrice.toLocaleString();
 
     if (tipEl) {
       if (plan3Count === 1) {
