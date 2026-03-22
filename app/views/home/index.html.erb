@@ -189,6 +189,16 @@
                   <%= label %>
                 </td>
               </tr>
+            <% elsif label == "龙虾数量" %>
+              <tr class="<%= i.even? ? 'bg-surface-elevated/20' : '' %>">
+                <td class="py-3 pr-6 text-sm font-mono font-medium text-primary border-b border-border/30"><%= label %></td>
+                <td class="py-3 px-4 text-center text-sm border-b border-border/30 text-secondary"><%= v1 %></td>
+                <td class="py-3 px-4 text-center text-sm border-b border-border/30 text-secondary"><%= v2 %></td>
+                <td class="py-3 px-4 text-center text-sm border-b border-border/30 font-semibold" style="background: hsl(174,100%,44%,0.04);">
+                  <span id="plan3-lobster-count">青狮龙虾 1 只</span>
+                </td>
+                <td class="py-3 px-4 text-center text-sm border-b border-border/30 text-secondary"><%= v4 %></td>
+              </tr>
             <% elsif label == "参加人数" %>
               <tr class="<%= i.even? ? 'bg-surface-elevated/20' : '' %>">
                 <td class="py-3 pr-6 text-sm font-mono font-medium text-primary border-b border-border/30"><%= label %></td>
@@ -571,7 +581,8 @@
     var minusEl      = document.getElementById('plan3-minus');
     var plusEl       = document.getElementById('plan3-plus');
     var tipEl        = document.getElementById('plan3-tip');
-    var originPriceEl = document.getElementById('plan3-origin-price');
+    var originPriceEl   = document.getElementById('plan3-origin-price');
+    var lobsterCountEl  = document.getElementById('plan3-lobster-count');
     var grandTotalEl = document.getElementById('plan3-grand-total');
     if (!countEl || !totalEl) return;
 
@@ -583,6 +594,10 @@
     totalEl.textContent = unitPrice.toLocaleString();
 
     var perSave = (plan3Count - 1) * plan3Discount;
+
+    if (lobsterCountEl) {
+      lobsterCountEl.textContent = '青狮龙虾 ' + plan3Count + ' 只';
+    }
 
     if (originPriceEl) {
       if (plan3Count === 1) {
