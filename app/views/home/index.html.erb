@@ -213,7 +213,7 @@
               <th class="px-5 py-3 text-left text-xs font-mono font-medium text-muted uppercase tracking-widest w-16">序号</th>
               <th class="px-5 py-3 text-left text-xs font-mono font-medium text-muted uppercase tracking-widest">技能名称</th>
               <th class="px-5 py-3 text-left text-xs font-mono font-medium text-muted uppercase tracking-widest hidden md:table-cell">使用场景</th>
-              <th class="px-5 py-3 text-left text-xs font-mono font-medium text-muted uppercase tracking-widest hidden sm:table-cell">AI 完成度</th>
+              <th class="px-5 py-3 text-left text-xs font-mono font-medium text-muted uppercase tracking-widest">AI 完成度</th>
               <th class="px-5 py-3 text-center text-xs font-mono font-medium text-muted uppercase tracking-widest">演示</th>
             </tr>
           </thead>
@@ -229,7 +229,7 @@
                 <td class="px-5 py-4 text-sm text-secondary hidden md:table-cell max-w-xs">
                   <%= skill.scenario.present? ? skill.scenario : "—" %>
                 </td>
-                <td class="px-5 py-4 hidden sm:table-cell">
+                <td class="px-5 py-4">
                   <% if skill.ai_completion.present? %>
                     <div style="display:flex; align-items:center; gap:8px; min-width:120px;">
                       <div style="flex:1; height:6px; background:rgba(128,128,128,0.2); border-radius:9999px; overflow:hidden;">
