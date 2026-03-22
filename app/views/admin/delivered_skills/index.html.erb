@@ -23,7 +23,7 @@
                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">技能名称</th>
                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">场景</th>
                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">节约时间</th>
-                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">节约费用</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">等值价值</th>
                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">视频演示</th>
                 <th class="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">排序</th>
                 <th class="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">操作</th>
@@ -45,7 +45,7 @@
                     <%= skill.time_saved.present? ? skill.time_saved : "—" %>
                   </td>
                   <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-300">
-                    <%= skill.cost_saved.present? ? skill.cost_saved : "—" %>
+                    <%= skill.equivalent_value.present? ? skill.equivalent_value : "—" %>
                   </td>
                   <td class="px-4 py-4 text-sm">
                     <% if skill.demo_video_url.present? %>

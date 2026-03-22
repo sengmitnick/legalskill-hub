@@ -3,6 +3,16 @@ class DeliveredSkill < ApplicationRecord
 
   scope :ordered, -> { order(:position, :id) }
 
+  # 从 time_saved 解析小时数，× 2000 得出等值价值
+  # 支持格式：「3h」「3 小时」「3.5h」「约 2 小时」等
+  def equivalent_value
+    return nil if time_saved.blank?
+    hours = time_saved.to_s.scan(/\d+\.?\d*/).first&.to_f
+    return nil if hours.nil? || hours == 0
+    value = (hours * 2000).to_i
+    "#{value.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\1,').reverse} 元"
+  end
+
   before_create :set_position
 
   def move_up!

@@ -214,7 +214,7 @@
               <th class="px-5 py-3 text-left text-xs font-mono font-medium text-muted uppercase tracking-widest">技能名称</th>
               <th class="px-5 py-3 text-left text-xs font-mono font-medium text-muted uppercase tracking-widest hidden md:table-cell">使用场景</th>
               <th class="px-5 py-3 text-left text-xs font-mono font-medium text-muted uppercase tracking-widest hidden sm:table-cell">节约时间</th>
-              <th class="px-5 py-3 text-left text-xs font-mono font-medium text-muted uppercase tracking-widest hidden sm:table-cell">节约费用</th>
+              <th class="px-5 py-3 text-left text-xs font-mono font-medium text-muted uppercase tracking-widest hidden sm:table-cell">等值价值</th>
               <th class="px-5 py-3 text-center text-xs font-mono font-medium text-muted uppercase tracking-widest">演示</th>
             </tr>
           </thead>
@@ -234,7 +234,7 @@
                   <%= skill.time_saved.present? ? skill.time_saved : "—" %>
                 </td>
                 <td class="px-5 py-4 text-sm font-mono hidden sm:table-cell" style="color: hsl(174,100%,44%)">
-                  <%= skill.cost_saved.present? ? skill.cost_saved : "—" %>
+                  <%= skill.equivalent_value.present? ? skill.equivalent_value : "—" %>
                 </td>
                 <td class="px-5 py-4 text-center">
                   <% if skill.demo_video_url.present? %>
