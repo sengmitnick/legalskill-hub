@@ -218,7 +218,7 @@
                       class="w-7 h-7 rounded-full flex items-center justify-center font-mono text-base font-bold transition-all leading-none"
                       style="background: hsl(174,100%,44%); color: #0a0f0d; border: 1.5px solid hsl(174,100%,44%);">+</button>
                   </div>
-                  <div id="plan3-tip" class="text-xs font-mono" style="color: hsl(174,100%,44%); opacity: 0.85;">点击 + 享受团购价</div>
+                  <div id="plan3-tip" class="text-xs font-mono leading-5" style="color: hsl(174,100%,44%); opacity: 0.85;">点击 +<br>享受团购价</div>
                 </td>
                 <td class="py-2 px-3 text-center border-b border-border/30">
                   <div class="flex items-center justify-center gap-2 mb-1">
@@ -230,7 +230,7 @@
                       class="w-7 h-7 rounded-full flex items-center justify-center font-mono text-base font-bold transition-all leading-none"
                       style="background: #64748b; color: #fff; border: 1.5px solid #64748b;">+</button>
                   </div>
-                  <div id="plan4-tip" class="text-xs font-mono text-muted/70">最低 15 人起</div>
+                  <div id="plan4-tip" class="text-xs font-mono text-muted/70 leading-5">最低 15 人<br>起</div>
                 </td>
               </tr>
             <% else %>
@@ -637,9 +637,9 @@
 
     if (tipEl) {
       if (plan3Count === 1) {
-        tipEl.textContent = '点击 + 享受团购价';
+        tipEl.innerHTML = '点击 +<br>享受团购价';
       } else {
-        tipEl.textContent = '每人立减 ' + perSave + ' 元，共减 ' + totalSaved + ' 元';
+        tipEl.innerHTML = '每人立减 ' + perSave + ' 元<br>共减 ' + totalSaved + ' 元';
       }
     }
 
@@ -684,10 +684,10 @@
 
     if (tipEl) {
       if (plan4Count === plan4MinCount) {
-        tipEl.textContent = '最低 15 人起';
+        tipEl.innerHTML = '最低 15 人起';
       } else {
         var saved = (2999 - plan4UnitPrice) * plan4Count;
-        tipEl.textContent = '每人立减 1000 元，共减 ' + saved.toLocaleString() + ' 元';
+        tipEl.innerHTML = '每人立减 1000 元<br>共减 ' + saved.toLocaleString() + ' 元';
       }
     }
 
