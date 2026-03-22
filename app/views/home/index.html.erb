@@ -156,12 +156,12 @@
             <th class="text-center py-5 px-4 border-b border-border w-[20%]">
               <div class="text-xs text-muted tracking-widest uppercase mb-2">方案 4</div>
               <div class="text-sm text-muted/60 mb-4">律所/律师团队内训</div>
-              <div id="plan4-origin-price" class="text-sm text-muted font-mono mb-0" style="text-decoration: line-through; visibility: hidden;">&nbsp;</div>
+              <div class="text-sm text-muted font-mono mb-0 invisible">&nbsp;</div>
               <div class="text-xs mb-1 invisible">&nbsp;</div>
               <div class="text-3xl font-bold text-primary mb-1">
-                <span id="plan4-total">29985</span><span class="text-sm font-normal text-muted ml-1">元</span>
+                <span id="plan4-total">1999</span><span class="text-sm font-normal text-muted ml-1">元/人</span>
               </div>
-              <div id="plan4-grand-total" class="text-xs text-muted mb-3"><span id="plan4-unit-price">1999</span> 元/人 · <span id="plan4-count-display">15</span> 人</div>
+              <div id="plan4-grand-total" class="text-xs text-muted mb-3">共计 <span id="plan4-count-display">29,985</span> 元</div>
               <%= link_to wechat_qrcode_path, class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center gap-1.5 w-full justify-center" do %>
                 <%= lucide_icon "shopping-cart", class: "w-3.5 h-3.5" %>
                 立即购买
@@ -677,9 +677,9 @@
     plan4Count = Math.max(plan4MinCount, plan4Count + delta);
     var total = plan4Count * plan4UnitPrice;
 
-    countEl.textContent        = plan4Count;
-    if (countDisplayEl) countDisplayEl.textContent = plan4Count;
-    totalEl.textContent        = total.toLocaleString();
+    countEl.textContent  = plan4Count;
+    totalEl.textContent  = plan4UnitPrice.toLocaleString();
+    if (countDisplayEl) countDisplayEl.textContent = total.toLocaleString();
     if (lobsterEl) lobsterEl.textContent = '青狮龙虾 ' + plan4Count + ' 只';
 
     if (tipEl) {
