@@ -140,8 +140,8 @@
             <th class="text-center py-5 px-4 border-b w-[20%]" style="border-color: hsl(174,100%,44%); background: hsl(174,100%,44%,0.04);">
               <div class="text-xs text-muted tracking-widest uppercase mb-2">方案 3</div>
               <div class="text-sm text-muted/60 mb-4">线下课程 + 1 年期使用权</div>
-              <div id="plan3-origin-price" class="text-sm text-muted line-through font-mono mb-0 invisible">&nbsp;</div>
-              <div id="plan3-subtitle" class="text-xs text-muted/60 font-mono mb-1 invisible">&nbsp;</div>
+              <div id="plan3-origin-price" class="text-sm text-muted font-mono mb-0 invisible" style="text-decoration: line-through;">&nbsp;</div>
+              <div class="text-xs mb-1 invisible">&nbsp;</div>
               <div class="text-3xl font-bold mb-1" style="color: hsl(174,100%,44%)">
                 <span id="plan3-total">2999</span><span class="text-sm font-normal text-muted ml-1">元/人</span>
               </div>
@@ -571,8 +571,7 @@
     var minusEl      = document.getElementById('plan3-minus');
     var plusEl       = document.getElementById('plan3-plus');
     var tipEl        = document.getElementById('plan3-tip');
-    var subtitleEl      = document.getElementById('plan3-subtitle');
-    var originPriceEl   = document.getElementById('plan3-origin-price');
+    var originPriceEl = document.getElementById('plan3-origin-price');
     var grandTotalEl = document.getElementById('plan3-grand-total');
     if (!countEl || !totalEl) return;
 
@@ -592,16 +591,6 @@
       } else {
         originPriceEl.classList.remove('invisible');
         originPriceEl.textContent = '原价 2999 元';
-      }
-    }
-
-    if (subtitleEl) {
-      if (plan3Count === 1) {
-        subtitleEl.classList.add('invisible');
-        subtitleEl.textContent = '\u00a0';
-      } else {
-        subtitleEl.classList.remove('invisible');
-        subtitleEl.textContent = '每人立减 ' + perSave + ' 元';
       }
     }
 
