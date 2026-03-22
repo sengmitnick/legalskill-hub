@@ -553,22 +553,31 @@
   var plan3MaxCount = 3;
 
   function updatePlan3(delta) {
+    var countEl = document.getElementById('plan3-count');
+    var totalEl = document.getElementById('plan3-total');
+    var minusEl = document.getElementById('plan3-minus');
+    var plusEl  = document.getElementById('plan3-plus');
+    if (!countEl || !totalEl) return;
+
     plan3Count = Math.max(1, Math.min(plan3MaxCount, plan3Count + delta));
     var unitPrice = plan3BasePrice - (plan3Count - 1) * plan3Discount;
     var total = unitPrice * plan3Count;
 
-    document.getElementById('plan3-count').textContent = plan3Count;
-    document.getElementById('plan3-unit-price').textContent = '单价 ' + unitPrice.toLocaleString() + ' 元/人';
-    document.getElementById('plan3-total').textContent = total.toLocaleString();
+    countEl.textContent = plan3Count;
+    totalEl.textContent = total.toLocaleString();
 
-    // 最小1人时禁用减号
-    document.getElementById('plan3-minus').style.opacity = plan3Count <= 1 ? '0.3' : '1';
-    document.getElementById('plan3-minus').style.cursor = plan3Count <= 1 ? 'not-allowed' : 'pointer';
-    // 最大时禁用加号
-    document.getElementById('plan3-plus').style.opacity = plan3Count >= plan3MaxCount ? '0.3' : '1';
-    document.getElementById('plan3-plus').style.cursor = plan3Count >= plan3MaxCount ? 'not-allowed' : 'pointer';
+    if (minusEl) {
+      minusEl.style.opacity = plan3Count <= 1 ? '0.3' : '1';
+      minusEl.style.cursor  = plan3Count <= 1 ? 'not-allowed' : 'pointer';
+    }
+    if (plusEl) {
+      plusEl.style.opacity = plan3Count >= plan3MaxCount ? '0.3' : '1';
+      plusEl.style.cursor  = plan3Count >= plan3MaxCount ? 'not-allowed' : 'pointer';
+    }
   }
 
   // 初始化状态
-  document.addEventListener('DOMContentLoaded', function() { updatePlan3(0); });
+  document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('plan3-count')) { updatePlan3(0); }
+  });
 </script>
