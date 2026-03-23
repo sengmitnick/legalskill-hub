@@ -161,6 +161,9 @@ Rails.application.routes.draw do
 
   mount ActionCable.server => '/cable'
 
+  # 静默 service-worker.js 请求（浏览器自动发起，返回空 204）
+  get '/service-worker.js', to: proc { [204, {}, []] }
+
   # Catch-all route for all 404 errors - MUST be last
   match '*path', to: 'application#handle_routing_error', via: :all,
     constraints: lambda { |request|
