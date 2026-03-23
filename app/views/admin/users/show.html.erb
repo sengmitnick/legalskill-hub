@@ -4,7 +4,7 @@
   <!-- Page Title -->
   <div class="flex items-center justify-between mb-8">
     <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-50">User Details</h1>
-    <%= link_to "Back to Users", admin_users_path, class: "btn-outline" %>
+    <%= link_to "返回 to 用户", admin_users_path, class: "btn-outline" %>
   </div>
 
   <!-- User Information -->
@@ -38,7 +38,7 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Created At</label>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">创建时间</label>
           <p class="text-gray-900 dark:text-gray-100"><%= @user.created_at.strftime('%Y-%m-%d %H:%M:%S') %></p>
         </div>
 
@@ -63,7 +63,7 @@
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">ID</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">User Agent</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">IP Address</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Created At</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">创建时间</th>
               </tr>
             </thead>
             <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">

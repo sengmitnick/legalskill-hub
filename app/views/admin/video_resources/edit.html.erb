@@ -1,14 +1,14 @@
-<% content_for :title, "Edit Video resource" %>
+<% content_for :title, "编辑 Video resource" %>
 
 <div class="container-md">
   <div class="flex items-center space-x-4">
     <%= link_to admin_video_resources_path, class: "btn-ghost text-sm py-1 px-3" do %>
       <%= lucide_icon "arrow-left", class: "w-4 h-4 mr-2" %>
-      Back to Video resources
+      返回 to Video resources
     <% end %>
   </div>
 
-  <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-50 mt-4 mb-8">Edit Video resource</h1>
+  <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-50 mt-4 mb-8">编辑 Video resource</h1>
 
   <!-- Form -->
   <div class="card bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
@@ -67,7 +67,7 @@
         <!-- Form Actions -->
         <div class="flex justify-end space-x-3">
           <%= link_to admin_video_resource_path(@video_resource.id), class: "btn-ghost" do %>
-            Cancel
+            取消
           <% end %>
           <%= form.submit "Update Video resource", class: "btn-primary" %>
         </div>

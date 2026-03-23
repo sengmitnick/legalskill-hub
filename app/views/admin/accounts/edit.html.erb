@@ -1,14 +1,14 @@
 <% content_for :title do %>
-  Account Settings
+  账号设置
 <% end %>
 
 <!-- Breadcrumb -->
 <div class="container-xl">
   <div class="text-sm text-gray-600 dark:text-gray-300 mb-6">
     <ol class="flex space-x-2">
-      <li><%= link_to "Dashboard", admin_root_path, class: "text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300" %></li>
+      <li><%= link_to "控制台", admin_root_path, class: "text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300" %></li>
       <li class="text-gray-400 dark:text-gray-500">/</li>
-      <li>Account Settings</li>
+      <li>账号设置</li>
     </ol>
   </div>
 
@@ -29,32 +29,32 @@
               <%= f.text_field :name, placeholder: "Enter your full name" %>
             </div>
 
-            <!-- Current Password Field -->
+            <!-- 当前密码 Field -->
             <div class="form-group">
-              <%= f.label :current_password, "Current Password" %>
+              <%= f.label :current_password, "当前密码" %>
               <%= f.password_field :current_password, placeholder: "Enter current password" %>
               <p class="form-help">Required for security verification</p>
             </div>
 
             <!-- New Password Field -->
             <div class="form-group">
-              <%= f.label :password, "New Password (leave blank to keep current)" %>
+              <%= f.label :password, "新密码（留空则不修改）" %>
               <%= f.password_field :password, placeholder: "Enter new password (optional)" %>
             </div>
 
             <!-- Confirm Password Field -->
             <div class="form-group">
               <%= f.label :password_confirmation %>
-              <%= f.password_field :password_confirmation, placeholder: "Confirm your new password" %>
+              <%= f.password_field :password_confirmation, placeholder: "确认新密码" %>
             </div>
 
             <!-- Action Buttons -->
             <div class="flex items-center justify-end space-x-4">
               <%= link_to admin_root_path, class: "btn-ghost" do %>
                 <%= lucide_icon "x", class: "w-4 h-4 mr-2" %>
-                Cancel
+                取消
               <% end %>
-              <%= f.submit "Update Account", class: "btn-primary" %>
+              <%= f.submit "保存账号", class: "btn-primary" %>
             </div>
           <% end %>
         </div>

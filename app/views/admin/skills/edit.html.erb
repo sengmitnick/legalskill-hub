@@ -1,14 +1,14 @@
-<% content_for :title, "Edit Skill" %>
+<% content_for :title, "编辑 Skill" %>
 
 <div class="container-md">
   <div class="flex items-center space-x-4">
     <%= link_to admin_skills_path, class: "btn-ghost text-sm py-1 px-3" do %>
       <%= lucide_icon "arrow-left", class: "w-4 h-4 mr-2" %>
-      Back to Skills
+      返回 to Skills
     <% end %>
   </div>
 
-  <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-50 mt-4 mb-8">Edit Skill</h1>
+  <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-50 mt-4 mb-8">编辑 Skill</h1>
 
   <!-- Form -->
   <div class="card bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
@@ -72,7 +72,7 @@
         <!-- Form Actions -->
         <div class="flex justify-end space-x-3">
           <%= link_to admin_skill_path(@skill.id), class: "btn-ghost" do %>
-            Cancel
+            取消
           <% end %>
           <%= form.submit "Update Skill", class: "btn-primary" %>
         </div>

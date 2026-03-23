@@ -1,9 +1,9 @@
-<% content_for :title, "Administrators" %>
+<% content_for :title, "管理员" %>
 
 <div class="container-xl">
   <!-- Page Title and Actions -->
   <div class="flex items-center justify-between mb-8">
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-50">Administrators Management</h1>
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-50">管理员 Management</h1>
     <% if current_admin.can_manage_administrators? %>
       <%= link_to new_admin_administrator_path, class: "btn-primary" do %>
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -14,7 +14,7 @@
     <% end %>
   </div>
 
-  <!-- Administrators Table -->
+  <!-- 管理员 Table -->
   <div class="card bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
     <div class="card-body p-0">
       <% if @administrators.any? %>
@@ -25,7 +25,7 @@
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">ID</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Name</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Role</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Created At</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">创建时间</th>
                 <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
