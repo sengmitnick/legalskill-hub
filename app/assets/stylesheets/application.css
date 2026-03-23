@@ -203,7 +203,7 @@
   }
 
   .section-subtitle {
-    @apply text-base md:text-lg text-secondary font-normal max-w-2xl font-sans;
+    @apply text-base md:text-lg text-secondary font-normal max-w-2xl font-sans mx-auto;
   }
 
   /* Category Pills — sharp tag style */
