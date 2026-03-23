@@ -1,16 +1,16 @@
-<% content_for :title, "Video resources" %>
+<% content_for :title, "线上课程" %>
 
 <div class="container-xl">
   <!-- Page Title and Actions -->
   <div class="flex items-center justify-between mb-8">
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-50">Video resources Management</h1>
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-50">线上课程管理</h1>
     <%= link_to new_admin_video_resource_path, class: "btn-primary" do %>
       <%= lucide_icon "plus", class: "w-5 h-5 mr-2" %>
-      New Video resource
+      New 线上课程
     <% end %>
   </div>
 
-  <!-- Video resources Table -->
+  <!-- 线上课程 Table -->
   <div class="card bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
     <div class="card-body p-0">
       <% if @video_resources.any? %>
@@ -75,7 +75,7 @@
           <p class="text-gray-500 dark:text-gray-400 mb-6">Get started by creating a new video_resource.</p>
           <%= link_to new_admin_video_resource_path, class: "btn-primary" do %>
             <%= lucide_icon "plus", class: "w-5 h-5 mr-2" %>
-            New Video resource
+            New 线上课程
           <% end %>
         </div>
       <% end %>
