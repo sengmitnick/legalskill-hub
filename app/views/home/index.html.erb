@@ -1,7 +1,7 @@
 <%# TECH AGENT HOME — Dark minimal, mission-control aesthetic %>
 
 <!-- HERO: Command Center -->
-<section class="relative min-h-screen flex items-center overflow-hidden bg-surface tech-grid-bg">
+<section class="relative min-h-screen flex items-center bg-surface tech-grid-bg">
   <!-- Radial glow -->
   <div class="absolute inset-0 pointer-events-none">
     <div class="absolute top-1/3 right-1/3 w-96 h-96 rounded-full opacity-10"
@@ -43,7 +43,7 @@
   </div>
 
   <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
+  <div class="absolute bottom-8 left-0 right-0 z-20 flex justify-center animate-bounce">
     <div class="flex flex-col items-center gap-2">
       <span class="text-xs font-mono text-muted tracking-widest">向下滚动</span>
       <%= lucide_icon "chevron-down", class: "w-4 h-4 text-primary" %>
