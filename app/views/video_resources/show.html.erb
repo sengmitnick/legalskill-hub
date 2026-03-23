@@ -4,9 +4,9 @@
   <div class="border-b border-border bg-surface-elevated">
     <div class="container-xl mx-auto px-6 py-4">
       <nav class="flex items-center gap-2 text-xs font-mono text-muted">
-        <%= link_to "HOME", root_path, class: "hover:text-primary transition-colors" %>
+        <%= link_to "首页", root_path, class: "hover:text-primary transition-colors" %>
         <span class="text-border">/</span>
-        <%= link_to "TRAINING", video_resources_path, class: "hover:text-primary transition-colors" %>
+        <%= link_to "线上课程", video_resources_path, class: "hover:text-primary transition-colors" %>
         <span class="text-border">/</span>
         <span class="text-primary truncate max-w-xs"><%= @video.title.upcase %></span>
       </nav>

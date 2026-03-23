@@ -5,9 +5,9 @@
     <div class="container-lg mx-auto px-6 py-4">
       <nav>
         <ol class="flex items-center gap-2 text-xs font-mono text-muted">
-          <li><%= link_to "HOME", root_path, class: "hover:text-primary transition-colors" %></li>
+          <li><%= link_to "首页", root_path, class: "hover:text-primary transition-colors" %></li>
           <li class="text-border">/</li>
-          <li><%= link_to "SKILLS", skills_path, class: "hover:text-primary transition-colors" %></li>
+          <li><%= link_to "交付技能", skills_path, class: "hover:text-primary transition-colors" %></li>
           <li class="text-border">/</li>
           <li><%= link_to @skill.category.name.upcase, skills_path(category: @skill.category.slug), class: "hover:text-primary transition-colors" %></li>
           <li class="text-border">/</li>
