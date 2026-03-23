@@ -244,7 +244,7 @@
           <li>· 参加地区：</li>
           <a href="#offline-classes" class="underline underline-offset-2 ml-3 mt-0.5" style="color:hsl(174,100%,44%);">
             <% @offline_classes.each do |oc| %>
-              <li style="list-style:none;"><span class="font-mono"><%= oc.date.strftime("%m%d") %></span> 龙虾课｜<%= oc.city %>站</li>
+              <li style="list-style:none;"><span class="font-mono"><%= oc.date.strftime("%m 月 %d 日") %></span>｜<%= oc.city %>站</li>
             <% end %>
           </a>
         </ul>
@@ -420,7 +420,7 @@
                 <td class="py-2 px-3 text-center text-xs border-b border-border/30 font-semibold leading-relaxed" style="background: hsl(174,100%,44%,0.04);">
                   <a href="#offline-classes" class="block hover:underline underline-offset-2 transition-opacity hover:opacity-80" style="color: hsl(174,100%,44%);">
                     <% @offline_classes.each do |oc| %>
-                      <div class="py-0.5"><span class="font-mono"><%= oc.date.strftime("%m%d") %></span> 龙虾课｜<%= oc.city %>站</div>
+                      <div class="py-0.5"><span class="font-mono"><%= oc.date.strftime("%m 月 %d 日") %></span>｜<%= oc.city %>站</div>
                     <% end %>
                   </a>
                 </td>
@@ -599,7 +599,7 @@
           <% end %>
 
           <!-- 标题 -->
-          <h3 class="font-bold text-base text-primary pr-16 leading-snug"><span class="font-mono"><%= oc.date.strftime("%m%d") %></span> 龙虾课｜<%= oc.city %>站</h3>
+          <h3 class="font-bold text-base text-primary pr-16 leading-snug"><span class="font-mono"><%= oc.date.strftime("%m 月 %d 日") %></span>｜<%= oc.city %>站</h3>
 
           <!-- 信息行 -->
           <div class="space-y-1.5 text-sm text-secondary">
