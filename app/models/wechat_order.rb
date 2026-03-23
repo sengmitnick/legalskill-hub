@@ -29,4 +29,18 @@ class WechatOrder < ApplicationRecord
   def plan3?
     plan == "plan3"
   end
+
+  # 动态生成订单展示标题（根据 plan + quantity）
+  PLAN_LABELS = {
+    "plan1" => "社群版",
+    "plan2" => "线上课程",
+    "plan3" => "线下课程",
+    "plan4" => "团队线下内训"
+  }.freeze
+
+  def display_description
+    label = PLAN_LABELS[plan] || plan.to_s
+    qty   = quantity.presence || 1
+    "青狮龙虾 · #{qty}人 · #{label} + 1 年期使用权"
+  end
 end

@@ -28,7 +28,7 @@
             <div class="flex items-start justify-between gap-4 mb-4">
               <div>
                 <p class="text-sm font-mono font-bold text-primary leading-snug">
-                  <%= order.description.presence || "课程购买" %>
+                  <%= order.display_description %>
                 </p>
                 <p class="text-xs font-mono text-muted mt-1">
                   订单号：<span class="text-secondary"><%= order.out_trade_no %></span>
