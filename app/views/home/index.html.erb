@@ -183,13 +183,12 @@
           <li>· 社群答疑 · 会议答疑 12 次+</li>
           <li>· 远程服务 · 线下交付</li>
           <li>· 适合：想快速上手，面对面解决所有疑问 ⭐</li>
-          <li>· 参加地区：
-            <a href="#offline-classes" class="underline underline-offset-2 pl-4 block" style="color:hsl(174,100%,44%);">
-              <% @offline_classes.each do |oc| %>
-                <div><%= oc.date.strftime("%m%d") %> 龙虾课｜<%= oc.city %>站</div>
-              <% end %>
-            </a>
-          </li>
+          <li>· 参加地区：</li>
+          <a href="#offline-classes" class="underline underline-offset-2 ml-3 mt-0.5" style="color:hsl(174,100%,44%);">
+            <% @offline_classes.each do |oc| %>
+              <li style="list-style:none;"><%= oc.date.strftime("%m%d") %> 龙虾课｜<%= oc.city %>站</li>
+            <% end %>
+          </a>
         </ul>
         <%= link_to wechat_qrcode_path, class: "btn-sm font-mono text-xs tracking-widest inline-flex items-center justify-center gap-1.5 w-full", style: "background:hsl(174,100%,44%); color:#0a0f0d; font-weight:700;" do %>
           <%= lucide_icon "shopping-cart", class: "w-3.5 h-3.5" %>
