@@ -16,6 +16,7 @@ module ApplicationHelper
                data: { turbo: true, turbo_stream: true }) do
         hidden_field_tag(:plan, plan) +
           (plan == "plan3" ? hidden_field_tag(:quantity, 1, id: "plan3-quantity-input") : "".html_safe) +
+          (plan == "plan4" ? hidden_field_tag(:quantity, 15, id: "plan4-quantity-input") : "".html_safe) +
           button_tag(label, type: "submit", class: css_class,
                      style: style,
                      data: { disable_with: "处理中..." })

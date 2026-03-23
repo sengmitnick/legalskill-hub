@@ -30,17 +30,24 @@ module Wechat
         @plan_key = params[:plan].presence
         plan_cfg  = plan_config(@plan_key)
 
-        # plan3 支持多人团购，quantity 由前端传入
-        qty = if @plan_key == "plan3"
+        # plan3/plan4 支持多人，quantity 由前端传入
+        qty = case @plan_key
+        when "plan3"
           [[params[:quantity].to_i, 1].max, 3].min
+        when "plan4"
+          [params[:quantity].to_i, 15].max  # 最低 15 人
         else
           1
         end
 
-        # plan3 动态定价：基价 2999，每增1人立减300，最多3人
-        amount = if @plan_key == "plan3" && !Rails.env.development?
+        # 动态定价
+        amount = if Rails.env.development?
+          plan_cfg[:amount]  # development 固定原价（1分）
+        elsif @plan_key == "plan3"
           unit_price = 2999_00 - (qty - 1) * 300_00
           unit_price * qty
+        elsif @plan_key == "plan4"
+          199900 * qty  # 1999 元/人
         else
           plan_cfg[:amount]
         end

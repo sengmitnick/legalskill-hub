@@ -992,5 +992,10 @@
       minusEl.style.opacity = plan4Count <= plan4MinCount ? '0.3' : '1';
       minusEl.style.cursor  = plan4Count <= plan4MinCount ? 'not-allowed' : 'pointer';
     }
+
+    // 同步 hidden quantity 字段
+    document.querySelectorAll('#plan4-quantity-input').forEach(function(el) {
+      el.value = plan4Count;
+    });
   }
 </script>
