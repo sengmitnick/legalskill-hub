@@ -26,6 +26,11 @@ module Wechat
         if order && trade_state == "SUCCESS"
           order.update!(status: "paid", wechat_transaction_id: transaction_id)
           Rails.logger.info "[WechatPay] Order #{out_trade_no} paid, txn=#{transaction_id}"
+          # Broadcast to frontend via ActionCable so the QR page auto-redirects
+          ActionCable.server.broadcast(
+            "wechat_pay_#{out_trade_no}",
+            { type: "payment-success", out_trade_no: out_trade_no }
+          )
         end
 
         render json: { code: "SUCCESS", message: "成功" }

@@ -1,5 +1,13 @@
 <%# TECH AGENT HOME — Dark minimal, mission-control aesthetic %>
 
+<%# Payment modal overlay — Turbo Stream fills #payment-modal-body on PC Native pay %>
+<div id="payment-modal-overlay"
+     class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+     data-controller="wechat-pay-modal"
+     data-action="click->wechat-pay-modal#backdropClick">
+  <div id="payment-modal-body" data-wechat-pay-modal-target="body"></div>
+</div>
+
 <!-- HERO: Command Center -->
 <section class="relative min-h-screen flex items-center bg-surface tech-grid-bg">
   <!-- Radial glow -->
@@ -45,6 +53,7 @@
 </section>
 
 <% if @hero_video_url.present? %>
+<!-- stimulus-validator: allow-script -->
 <script>
   // ESC 键关闭技能演示弹窗
   document.addEventListener('keydown', function(e) {
@@ -69,6 +78,8 @@
     </div>
   </div>
 </div>
+
+<!-- stimulus-validator: allow-script -->
 <script>
   function openSkillVideo(url, title) {
     var modal = document.getElementById('skill-video-modal');
@@ -173,10 +184,7 @@
           <li>· 适合：自带技术感，能自主探索工具的独立律师</li>
           <li>· 参加地区：微信社群</li>
         </ul>
-        <%= link_to wechat_qrcode_path, class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center justify-center gap-1.5 w-full" do %>
-          <%= lucide_icon "shopping-cart", class: "w-3.5 h-3.5" %>
-          立即购买
-        <% end %>
+        <%= buy_button(plan: "plan1", css_class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center justify-center gap-1.5 w-full") %>
       </div>
 
       <!-- 卡片2：方案二 -->
@@ -195,10 +203,7 @@
           <li>· 适合：想系统掌握龙虾，跟着镐赞学满一年</li>
           <li>· 参加地区：线上课程</li>
         </ul>
-        <%= link_to wechat_qrcode_path, class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center justify-center gap-1.5 w-full" do %>
-          <%= lucide_icon "shopping-cart", class: "w-3.5 h-3.5" %>
-          立即购买
-        <% end %>
+        <%= buy_button(plan: "plan2", css_class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center justify-center gap-1.5 w-full") %>
       </div>
 
       <!-- 卡片3：方案三（推荐） -->
@@ -243,10 +248,7 @@
             <% end %>
           </a>
         </ul>
-        <%= link_to wechat_qrcode_path, class: "btn-sm font-mono text-xs tracking-widest inline-flex items-center justify-center gap-1.5 w-full", style: "background:hsl(174,100%,44%); color:#0a0f0d; font-weight:700;" do %>
-          <%= lucide_icon "shopping-cart", class: "w-3.5 h-3.5" %>
-          立即购买
-        <% end %>
+        <%= buy_button(plan: "plan3", css_class: "btn-sm font-mono text-xs tracking-widest inline-flex items-center justify-center gap-1.5 w-full", style: "background:hsl(174,100%,44%); color:#0a0f0d; font-weight:700;") %>
       </div>
 
       <!-- 卡片4：方案四 -->
@@ -282,10 +284,7 @@
           <li>· 适合：整个团队一起提效，适合律所或区域律师群体</li>
           <li>· 参加地区：由内训负责人确定</li>
         </ul>
-        <%= link_to wechat_qrcode_path, class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center justify-center gap-1.5 w-full" do %>
-          <%= lucide_icon "shopping-cart", class: "w-3.5 h-3.5" %>
-          立即购买
-        <% end %>
+        <%= buy_button(plan: "plan4", css_class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center justify-center gap-1.5 w-full") %>
       </div>
 
     </div>
@@ -306,10 +305,7 @@
               <div class="text-sm mb-1 invisible">&nbsp;</div>
               <div class="text-2xl sm:text-3xl font-bold text-primary mb-1">999<span class="text-xs sm:text-sm font-normal text-muted ml-1">元</span></div>
               <div class="text-xs text-muted invisible mb-3">&nbsp;</div>
-              <%= link_to wechat_qrcode_path, class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center gap-1.5 w-full justify-center" do %>
-                <%= lucide_icon "shopping-cart", class: "w-3.5 h-3.5" %>
-                立即购买
-              <% end %>
+              <%= buy_button(plan: "plan1", css_class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center gap-1.5 w-full justify-center") %>
             </th>
 
             <!-- 方案二 -->
@@ -319,10 +315,7 @@
               <div class="text-sm mb-1 invisible" aria-hidden="true">&nbsp;</div>
               <div class="text-2xl sm:text-3xl font-bold text-primary mb-1">1999<span class="text-xs sm:text-sm font-normal text-muted ml-1">元</span></div>
               <div class="text-xs text-muted invisible mb-3">&nbsp;</div>
-              <%= link_to wechat_qrcode_path, class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center gap-1.5 w-full justify-center" do %>
-                <%= lucide_icon "shopping-cart", class: "w-3.5 h-3.5" %>
-                立即购买
-              <% end %>
+              <%= buy_button(plan: "plan2", css_class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center gap-1.5 w-full justify-center") %>
             </th>
 
             <!-- 方案三 -->
@@ -334,10 +327,7 @@
                 <span id="plan3-total">2999</span><span class="text-xs sm:text-sm font-normal text-muted ml-1">元/人</span>
               </div>
               <div id="plan3-grand-total" class="text-xs text-muted invisible mb-3">&nbsp;</div>
-              <%= link_to wechat_qrcode_path, class: "btn-sm font-mono text-xs tracking-widest inline-flex items-center gap-1.5 w-full justify-center", style: "background: hsl(174,100%,44%); color: #0a0f0d; font-weight: 700;" do %>
-                <%= lucide_icon "shopping-cart", class: "w-3.5 h-3.5" %>
-                立即购买
-              <% end %>
+              <%= buy_button(plan: "plan3", css_class: "btn-sm font-mono text-xs tracking-widest inline-flex items-center gap-1.5 w-full justify-center", style: "background: hsl(174,100%,44%); color: #0a0f0d; font-weight: 700;") %>
             </th>
 
             <!-- 方案四 -->
@@ -349,10 +339,7 @@
                 <span id="plan4-total">1999</span><span class="text-xs sm:text-sm font-normal text-muted ml-1">元/人</span>
               </div>
               <div id="plan4-grand-total" class="text-xs text-muted mb-3">共计 <span id="plan4-count-display">29,985</span> 元</div>
-              <%= link_to wechat_qrcode_path, class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center gap-1.5 w-full justify-center" do %>
-                <%= lucide_icon "shopping-cart", class: "w-3.5 h-3.5" %>
-                立即购买
-              <% end %>
+              <%= buy_button(plan: "plan4", css_class: "btn-outline btn-sm font-mono text-xs tracking-widest inline-flex items-center gap-1.5 w-full justify-center") %>
             </th>
           </tr>
         </thead>
@@ -881,6 +868,7 @@
   </div>
 </footer>
 
+<!-- stimulus-validator: allow-script -->
 <script>
   var plan3Count = 1;
   var plan3BasePrice = 2999;

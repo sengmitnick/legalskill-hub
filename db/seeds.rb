@@ -235,7 +235,7 @@ delivered_skills_data = [
 ]
 
 delivered_skills_data.each_with_index do |attrs, idx|
-  DeliveredSkill.create!(attrs.merge(position: idx + 1))
+  DeliveredSkill.create!(attrs.except(:time_saved, :cost_saved).merge(position: idx + 1))
 end
 
 puts "  - #{DeliveredSkill.count} delivered skills seeded"

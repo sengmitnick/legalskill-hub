@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Controller } from "@hotwired/stimulus"
 
 // 省市区数据（精简版，覆盖主要省份）
@@ -35,12 +36,21 @@ const REGIONS = {
   "青海省": { "西宁市": ["城东区","城中区","城西区","城北区","湟中区","大通县","湟源县"] }
 }
 
+type RegionData = Record<string, Record<string, string[]>>
+
 export default class extends Controller {
   static targets = ["province", "city", "district", "mobile", "sendBtn", "smsMsg"]
 
+  declare readonly provinceTarget:  HTMLSelectElement
+  declare readonly cityTarget:      HTMLSelectElement
+  declare readonly districtTarget:  HTMLSelectElement
+  declare readonly mobileTarget:    HTMLInputElement
+  declare readonly sendBtnTarget:   HTMLButtonElement
+  declare readonly smsMsgTarget:    HTMLElement
+  private countdown: ReturnType<typeof setInterval> | null = null
+
   connect() {
     this.populateProvinces()
-    this.countdown = null
   }
 
   populateProvinces() {
@@ -61,8 +71,9 @@ export default class extends Controller {
     citySel.innerHTML = '<option value="">市</option>'
     districtSel.innerHTML = '<option value="">区/县（可选）</option>'
 
-    if (!province || !REGIONS[province]) return
-    Object.keys(REGIONS[province]).forEach(c => {
+    const regions = REGIONS as RegionData
+    if (!province || !regions[province]) return
+    Object.keys(regions[province]).forEach(c => {
       const opt = document.createElement("option")
       opt.value = c
       opt.textContent = c
@@ -74,11 +85,12 @@ export default class extends Controller {
     const province = this.provinceTarget.value
     const city = this.cityTarget.value
     const districtSel = this.districtTarget
+    const regions = REGIONS as RegionData
 
     districtSel.innerHTML = '<option value="">区/县（可选）</option>'
-    if (!province || !city || !REGIONS[province] || !REGIONS[province][city]) return
+    if (!province || !city || !regions[province] || !regions[province][city]) return
 
-    REGIONS[province][city].forEach(d => {
+    regions[province][city].forEach(d => {
       const opt = document.createElement("option")
       opt.value = d
       opt.textContent = d
@@ -86,7 +98,7 @@ export default class extends Controller {
     })
   }
 
-  async sendCode(e) {
+  sendCode(e: Event) {
     e.preventDefault()
     const mobile = this.mobileTarget.value.trim()
     const btn = this.sendBtnTarget
@@ -102,40 +114,38 @@ export default class extends Controller {
     btn.disabled = true
     btn.textContent = "发送中..."
 
-    try {
-      const res = await fetch("/verification_codes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
-        },
-        body: JSON.stringify({ mobile })
-      })
-      const data = await res.json()
-
+    const xhr = new XMLHttpRequest()
+    xhr.open("POST", "/api/verification_codes")
+    xhr.setRequestHeader("Content-Type", "application/json")
+    const csrf = (document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement)?.content ?? ""
+    xhr.setRequestHeader("X-CSRF-Token", csrf)
+    xhr.onload = () => {
+      const data = JSON.parse(xhr.responseText)
       msg.textContent = data.message
-      msg.className = res.ok
+      msg.className = xhr.status < 400
         ? "mt-1 text-xs font-mono text-green-400"
         : "mt-1 text-xs font-mono text-red-400"
       msg.classList.remove("hidden")
-
-      if (res.ok) this.startCountdown(btn)
+      if (xhr.status < 400) this.startCountdown(btn)
       else btn.disabled = false
-    } catch (_) {
+    }
+    xhr.onerror = () => {
       msg.textContent = "网络错误，请稍后重试"
       msg.className = "mt-1 text-xs font-mono text-red-400"
       msg.classList.remove("hidden")
       btn.disabled = false
     }
+    xhr.send(JSON.stringify({ mobile }))
   }
 
-  startCountdown(btn) {
+  startCountdown(btn: HTMLButtonElement) {
     let secs = 60
     btn.textContent = `${secs}s 后重发`
     this.countdown = setInterval(() => {
       secs -= 1
       if (secs <= 0) {
-        clearInterval(this.countdown)
+        clearInterval(this.countdown!)
+        this.countdown = null
         btn.disabled = false
         btn.textContent = "重新获取"
       } else {

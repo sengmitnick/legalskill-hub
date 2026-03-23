@@ -1,8 +1,8 @@
-class LawFirmsController < ApplicationController
+class Api::LawFirmsController < ApplicationController
   skip_before_action :authenticate_user!
   skip_before_action :require_profile_complete
 
-  # GET /law_firms/autocomplete?q=大成
+  # GET /api/law_firms/autocomplete?q=大成
   def autocomplete
     q = params[:q].to_s.strip
     if q.length >= 1

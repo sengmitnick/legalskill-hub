@@ -32,14 +32,19 @@ export default class extends Controller {
     this.debounceTimer = setTimeout(() => this.search(q), 250)
   }
 
-  async search(q: string) {
-    try {
-      const res = await fetch(`/law_firms/autocomplete?q=${encodeURIComponent(q)}`)
-      const data: Array<{ id: number; name: string }> = await res.json()
-      this.renderDropdown(data, q)
-    } catch (e) {
-      this.hideDropdown()
+  search(q: string) {
+    const xhr = new XMLHttpRequest()
+    xhr.open("GET", `/api/law_firms/autocomplete?q=${encodeURIComponent(q)}`)
+    xhr.onload = () => {
+      if (xhr.status < 400) {
+        const data: Array<{ id: number; name: string }> = JSON.parse(xhr.responseText)
+        this.renderDropdown(data, q)
+      } else {
+        this.hideDropdown()
+      }
     }
+    xhr.onerror = () => this.hideDropdown()
+    xhr.send()
   }
 
   renderDropdown(items: Array<{ id: number; name: string }>, q: string) {

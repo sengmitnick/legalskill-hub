@@ -14,6 +14,11 @@ class WechatMpService
     @token     = ENV.fetch("WECHAT_MP_TOKEN", "")
   end
 
+  # Entry point for generic service call pattern
+  def call
+    self
+  end
+
   # Verify WeChat server signature (GET webhook)
   def valid_signature?(timestamp, nonce, signature)
     arr = [ @token, timestamp, nonce ].sort

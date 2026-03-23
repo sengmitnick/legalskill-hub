@@ -1,6 +1,7 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_profile_complete
+  # Allow viewing and editing profile even if profile is incomplete
+  skip_before_action :require_profile_complete, only: [:show, :edit, :update]
 
   def show
     @user = current_user

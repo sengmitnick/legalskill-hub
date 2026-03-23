@@ -28,10 +28,12 @@ Rails.application.routes.draw do
   resources :resources, only: [:index, :show]
   # End routes for resources
 
-  # Routes for skills — Skill 市场已隐藏，重定向到首页
-  get '/skills',      to: redirect('/')
-  get '/skills/:id',  to: redirect('/')
-  # End routes for skills
+  # Routes for skills
+  resources :skills, only: [:index, :show] do
+    member do
+      post :purchase
+    end
+  end
 
   resources :payments, only: [] do
     member do
@@ -43,26 +45,30 @@ Rails.application.routes.draw do
   end
   post '/webhooks/stripe', to: 'payments#webhook'
   # Authentication routes（微信登录专用，邮箱/密码/设备相关已移除）
-  # sign_in_path 别名 → 微信扫码登录页，保持兼容旧引用
-  get 'sign_in', to: redirect('/wechat/qrcode'), as: :sign_in
+  # sign_in_path / sign_up_path 别名 → 微信扫码登录页，保持兼容旧引用
+  get  'sign_in',  to: redirect('/wechat/qrcode'), as: :sign_in
+  post 'sign_in',  to: 'sessions/registrations#create'
+  get  'sign_up',  to: redirect('/wechat/qrcode'), as: :sign_up
+  post 'sign_up',  to: 'sessions/registrations#create'
   delete 'sign_out', to: 'sessions#destroy', as: :sign_out
 
-  get  "/auth/failure",            to: "sessions/omniauth#failure"
-  get  "/auth/:provider/callback", to: "sessions/omniauth#create"
-  post "/auth/:provider/callback", to: "sessions/omniauth#create"
+  get  "/auth/failure",              to: "sessions/omniauth#failure"
+  get  "/auth/wechat/handoff",       to: "sessions/wechat_handoff#show", as: :auth_wechat_handoff
+  get  "/auth/:provider/callback",   to: "sessions/omniauth#create"
+  post "/auth/:provider/callback",   to: "sessions/omniauth#create"
 
   # Profile setup (post-wechat-login onboarding)
   get  'profile/setup', to: 'profile_setup#show',   as: :profile_setup
   post 'profile/setup', to: 'profile_setup#update'
 
-  # SMS verification codes
-  resources :verification_codes, only: [:create]
+  # API endpoints (exempt from turbo-stream validation)
+  namespace :api do
+    resources :verification_codes, only: [:create]
+    get 'law_firms/autocomplete', to: 'law_firms#autocomplete'
+  end
 
   # Profile routes
   resource :profile, only: [:show, :edit, :update], controller: 'profiles'
-
-  # Law firm autocomplete
-  get 'law_firms/autocomplete', to: 'law_firms#autocomplete'
 
   # Authentication routes generated end
 
@@ -70,15 +76,23 @@ Rails.application.routes.draw do
   namespace :wechat do
     get  'mp', to: 'mp#verify'
     post 'mp', to: 'mp#callback'
+
+    # Open Platform WxLogin (PC QR code login)
     get  'qrcode', to: 'qrcode#show'
+    # Legacy MP check endpoint (kept for backward compatibility)
     get  'check',  to: 'qrcode#check'
+
+    # MP OAuth silent authorization (for JSAPI payment openid)
+    scope :mp_oauth do
+      get  'authorize', to: 'mp_oauth#authorize', as: :mp_oauth_authorize
+      get  'callback',  to: 'mp_oauth#callback',  as: :mp_oauth_callback
+    end
 
     # WeChat Pay routes
     namespace :pay do
       get  'order',         to: 'orders#new',       as: :order_new
       post 'order',         to: 'orders#create',    as: :order_create
       get  'order/success', to: 'orders#success',   as: :order_success
-      get  'status/:out_trade_no', to: 'status#show', as: :status
       post 'notify',        to: 'notify#callback',  as: :notify
     end
   end

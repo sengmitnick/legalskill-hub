@@ -1,10 +1,10 @@
 # 短信验证码接口（AJAX）
-# POST /verification_codes       → 发送验证码
-class VerificationCodesController < ApplicationController
+# POST /api/verification_codes → 发送验证码
+class Api::VerificationCodesController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :require_profile_complete, raise: false
 
-  # POST /verification_codes
+  # POST /api/verification_codes
   # params: mobile
   def create
     mobile = params[:mobile].to_s.strip
@@ -14,7 +14,6 @@ class VerificationCodesController < ApplicationController
       return
     end
 
-    # 手机号已被其他账号绑定
     if UserProfile.where(phone: mobile).where.not(user_id: current_user.id).exists?
       render json: { message: "该手机号已被其他账号使用" }, status: :unprocessable_entity
       return
@@ -30,7 +29,6 @@ class VerificationCodesController < ApplicationController
     end
   rescue => e
     Rails.logger.error("SmsSender error: #{e.message}")
-    msg = "短信发送失败：#{e.message}"
-    render json: { message: msg }, status: :service_unavailable
+    render json: { message: "短信发送失败：#{e.message}" }, status: :service_unavailable
   end
 end
