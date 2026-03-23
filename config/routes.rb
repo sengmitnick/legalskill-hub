@@ -137,11 +137,7 @@ Rails.application.routes.draw do
       end
     end
     resources :payments, only: [:index, :show]
-    resources :offline_classes do
-      member do
-        get :show  # 报名列表
-      end
-    end
+    resources :offline_classes
     resources :wechat_orders, only: [:index, :show, :edit, :update]
     resources :users, only: [:index, :show]
     resources :law_firms
