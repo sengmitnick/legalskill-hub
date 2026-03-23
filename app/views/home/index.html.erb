@@ -39,6 +39,27 @@
         </button>
       <% end %>
     </div>
+
+    <!-- 下载安装器 -->
+    <div class="mt-8 flex flex-col items-center gap-3">
+      <p class="text-xs font-mono text-muted tracking-widest">下载安装器</p>
+      <div class="flex flex-col sm:flex-row items-center gap-3">
+        <!-- Mac 推荐 -->
+        <a href="#" class="group relative inline-flex items-center gap-2.5 px-5 py-2.5 font-mono text-sm font-bold tracking-wide rounded-sm transition-all"
+           style="background: hsl(174,100%,44%); color: #0a0f0d;">
+          <%= lucide_icon "apple", class: "w-4 h-4" %>
+          <span>Mac 下载</span>
+          <span class="absolute -top-2.5 -right-2.5 text-xs font-mono font-bold px-1.5 py-0.5 rounded-sm leading-none"
+                style="background: #ff4444; color: #fff; font-size: 0.6rem;">推荐</span>
+        </a>
+        <!-- Windows -->
+        <a href="#" class="inline-flex items-center gap-2.5 px-5 py-2.5 font-mono text-sm tracking-wide rounded-sm border border-border text-secondary hover:text-primary hover:border-primary transition-all">
+          <%= lucide_icon "monitor", class: "w-4 h-4" %>
+          <span>Windows 下载</span>
+        </a>
+      </div>
+      <p class="text-xs text-muted/60 font-mono">⭐ 推荐使用 Mac 电脑，体验更稳定流畅</p>
+    </div>
   </div>
 
   <!-- Scroll indicator -->
