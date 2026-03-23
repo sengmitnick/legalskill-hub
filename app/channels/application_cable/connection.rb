@@ -26,7 +26,7 @@ module ApplicationCable
           reject_unauthorized_connection
         end
       else
-        reject_unauthorized_connection
+        nil
       end
     end
     # Authentication methods generated end

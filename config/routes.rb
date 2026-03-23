@@ -35,6 +35,9 @@ Rails.application.routes.draw do
     end
   end
 
+  # 我的订单
+  resources :orders, only: [:index]
+
   resources :payments, only: [] do
     member do
       get :pay
