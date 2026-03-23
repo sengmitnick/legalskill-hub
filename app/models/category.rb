@@ -17,4 +17,9 @@ class Category < ApplicationRecord
   def should_generate_new_friendly_id?
     name_changed?
   end
+
+  # 公开课分类：所有人均可查看
+  def free?
+    name == "公开课"
+  end
 end

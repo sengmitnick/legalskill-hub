@@ -141,6 +141,11 @@ class User < ApplicationRecord
     provider.present? && uid.present?
   end
 
+  # 是否有进阶课程观看权限（plan2/3/4 已付款）
+  def has_premium_video_access?
+    wechat_orders.where(status: "paid", plan: %w[plan2 plan3 plan4]).exists?
+  end
+
   def email_was_generated?
     email.end_with?(GENERATED_EMAIL_SUFFIX)
   end

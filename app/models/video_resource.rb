@@ -11,6 +11,11 @@ class VideoResource < ApplicationRecord
   # 保存后自动抓取B站封面（仅当 cover_image 为空 或 bilibili_url 变更时）
   after_save :auto_fetch_bilibili_cover, if: :should_fetch_cover?
 
+  # 公开课：所有人可看；进阶课：需要 plan2/3/4 已付款
+  def free?
+    category.free?
+  end
+
   def increment_views!
     increment!(:views_count)
   end
