@@ -585,10 +585,9 @@
                 <td class="px-5 py-4 text-center">
                   <% if skill.demo_video_url.present? %>
                     <%= link_to skill.demo_video_url, target: "_blank", rel: "noopener noreferrer",
-                        class: "inline-flex items-center gap-2 px-3 py-1.5 font-mono text-xs font-bold tracking-wide rounded-sm transition-all",
-                        style: "background: hsl(174,100%,44%); color: #0a0f0d;" do %>
-                      <%= lucide_icon "play-circle", class: "w-3.5 h-3.5" %>
-                      <span>观看演示</span>
+                        class: "inline-flex items-center gap-1 text-xs font-mono text-primary hover:text-primary-light transition-colors" do %>
+                      <%= lucide_icon "play-circle", class: "w-4 h-4" %>
+                      <span>演示</span>
                     <% end %>
                   <% else %>
                     <span class="text-muted/40 text-xs">—</span>
