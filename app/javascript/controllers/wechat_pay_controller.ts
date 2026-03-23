@@ -9,6 +9,8 @@ import BaseChannelController from "./base_channel_controller"
 // Values:
 //   outTradeNo  - the order's out_trade_no (used as ActionCable stream key)
 //   successUrl  - redirect URL on successful payment
+// Actions:
+//   close - delegates to parent wechat-pay-modal controller to hide the overlay
 
 export default class extends BaseChannelController {
   static targets = ["status", "spinner"]
@@ -46,5 +48,16 @@ export default class extends BaseChannelController {
 
   protected channelConnected(): void {
     this.statusTarget.textContent = "等待扫码支付..."
+  }
+
+  // Bubble up to the parent wechat-pay-modal controller to close the overlay
+  close(): void {
+    const overlay = this.element.closest<HTMLElement>("[data-controller~='wechat-pay-modal']")
+    if (overlay) {
+      overlay.classList.add("hidden")
+      overlay.classList.remove("flex")
+      const body = overlay.querySelector<HTMLElement>("[data-wechat-pay-modal-target='body']")
+      if (body) body.innerHTML = ""
+    }
   }
 }
