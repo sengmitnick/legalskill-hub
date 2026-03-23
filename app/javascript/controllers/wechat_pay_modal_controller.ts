@@ -1,36 +1,29 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Controls the payment modal overlay on the homepage (PC Native pay flow).
-// Works together with wechat-pay controller inside the modal body.
-//
-// Usage in layout (homepage):
-//   <div id="payment-modal-overlay"
-//        class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
-//        data-controller="wechat-pay-modal"
-//        data-action="click->wechat-pay-modal#backdropClick">
-//     <div id="payment-modal-body" data-wechat-pay-modal-target="body"></div>
-//   </div>
-//
-// Targets:
-//   body - the inner container that receives Turbo Stream content
-//
-// Actions:
-//   close        - hides the overlay and clears the body
-//   backdropClick - closes when clicking the backdrop (not the card)
-
+// 支付弹窗遮罩控制器
+// 用法：data-controller="wechat-pay-modal"
+// 方法：open()、close()、backdropClick(event)
 export default class extends Controller {
   static targets = ["body"]
 
   declare readonly bodyTarget: HTMLElement
   declare readonly hasBodyTarget: boolean
 
-  close(): void {
-    this.element.classList.add("hidden")
-    this.element.classList.remove("flex")
-    if (this.hasBodyTarget) this.bodyTarget.innerHTML = ""
+  // 打开弹窗
+  open() {
+    this.element.classList.remove("hidden")
   }
 
-  backdropClick(event: MouseEvent): void {
+  // 关闭弹窗，清空内容
+  close() {
+    this.element.classList.add("hidden")
+    if (this.hasBodyTarget) {
+      this.bodyTarget.innerHTML = ""
+    }
+  }
+
+  // 点击遮罩背景时关闭（点到内容区不关闭）
+  backdropClick(event: MouseEvent) {
     if (event.target === this.element) {
       this.close()
     }
