@@ -62,7 +62,10 @@ class User < ApplicationRecord
 
   # OAuth methods
   def self.from_omniauth(auth)
-    name = auth.info.name.presence || "#{SecureRandom.hex(10)}_user"
+    # WeChat Open Platform login — uses unionid as cross-app identifier
+    return from_open_wechat(auth) if auth.provider.to_s == "open_wechat"
+
+    name  = auth.info.name.presence || "#{SecureRandom.hex(10)}_user"
     email = auth.info.email.presence || User.generate_email(name)
 
     # First, try to find user by email
@@ -79,12 +82,49 @@ class User < ApplicationRecord
     # If not found, create a new user
     verified = !email.end_with?(GENERATED_EMAIL_SUFFIX)
     create(
-      name: name,
-      email: email,
+      name:     name,
+      email:    email,
       provider: auth.provider,
-      uid: auth.uid,
-      verified: verified,
+      uid:      auth.uid,
+      verified: verified
     )
+  end
+
+  # Find or create a user by WeChat Open Platform unionid.
+  # unionid is stable across all apps under the same open platform account.
+  def self.from_open_wechat(auth)
+    unionid = auth.info[:unionid].presence || auth.uid
+    openid  = auth.info[:openid]
+    name    = auth.info[:name].presence || "微信用户"
+
+    transaction do
+      # Look up by unionid first (cross-app identifier)
+      user = find_by(wechat_unionid: unionid)
+
+      # Fall back to legacy wechat_openid lookup (users from old MP login)
+      user ||= find_by(wechat_openid: openid) if openid.present?
+
+      if user
+        user.update!(
+          wechat_unionid: unionid,
+          provider:       "open_wechat",
+          uid:            unionid
+        )
+        return user
+      end
+
+      # New user — create with generated email (no password)
+      user = create!(
+        wechat_unionid: unionid,
+        name:           name,
+        email:          generate_email("wx_#{unionid.last(8)}"),
+        provider:       "open_wechat",
+        uid:            unionid,
+        verified:       false
+      )
+      user.create_profile!
+      user
+    end
   end
 
   def self.generate_email(name)

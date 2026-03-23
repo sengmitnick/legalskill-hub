@@ -1,0 +1,68 @@
+<%# Payment QR code modal — rendered via Turbo Stream into #payment-modal-overlay %>
+<%# The outer overlay div (#payment-modal-overlay) has data-controller="wechat-pay-modal" already. %>
+<%# DO NOT add data-controller="wechat-pay-modal" here — it would create a second instance. %>
+<div class="flex items-center justify-center w-full h-full p-4">
+  <div class="relative bg-surface-elevated border border-border rounded-2xl shadow-2xl w-full max-w-sm"
+       data-controller="wechat-pay"
+       data-wechat-pay-out-trade-no-value="<%= out_trade_no %>"
+       data-wechat-pay-success-url-value="<%= wechat_pay_order_success_path %>">
+
+    <%# Close button %>
+    <button type="button"
+            class="absolute top-3 right-3 text-muted hover:text-secondary transition-default"
+            data-action="click->wechat-pay-modal#close">
+      <%= lucide_icon "x", class: "w-5 h-5" %>
+    </button>
+
+    <%# Header %>
+    <div class="px-6 pt-6 pb-4 border-b border-border text-center">
+      <div class="flex items-center justify-center gap-2 mb-1">
+        <%= lucide_icon "qr-code", class: "w-5 h-5 text-primary" %>
+        <h2 class="text-lg font-semibold text-primary">微信扫码支付</h2>
+      </div>
+      <p class="text-xs text-muted"><%= description %></p>
+    </div>
+
+    <%# Body %>
+    <div class="px-6 py-5 space-y-5 text-center">
+      <%# QR Code %>
+      <div class="flex justify-center">
+        <div class="p-3 bg-white rounded-xl border border-border inline-block">
+          <%= qr_svg.html_safe %>
+        </div>
+      </div>
+
+      <%# Amount %>
+      <div>
+        <div class="text-3xl font-bold text-primary font-mono">
+          ¥<%= sprintf("%.0f", amount_yuan) %>
+        </div>
+        <p class="text-xs text-muted mt-0.5">使用微信扫码完成支付</p>
+      </div>
+
+      <%# Waiting status %>
+      <div class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-surface text-sm text-secondary">
+        <div data-wechat-pay-target="spinner"
+             class="w-3.5 h-3.5 border-2 border-primary border-t-transparent rounded-full animate-spin shrink-0">
+        </div>
+        <span data-wechat-pay-target="status">等待扫码支付...</span>
+      </div>
+
+      <%# Steps %>
+      <ol class="text-left text-xs text-muted space-y-1.5 list-none">
+        <li class="flex items-center gap-2">
+          <%= lucide_icon "smartphone", class: "w-3.5 h-3.5 shrink-0 text-primary" %>
+          <span>打开微信 → 右上角「+」→「扫一扫」</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <%= lucide_icon "scan-line", class: "w-3.5 h-3.5 shrink-0 text-primary" %>
+          <span>扫描上方二维码，确认支付</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <%= lucide_icon "check-circle", class: "w-3.5 h-3.5 shrink-0 text-primary" %>
+          <span>支付成功后页面自动跳转</span>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>

@@ -7,7 +7,7 @@ class Wechat::MpController < ApplicationController
 
   def verify
     # HEAD requests from WeChat health checks have no params — return 200 immediately
-    return head :ok if request.head?
+    return render plain: "" if request.head?
 
     service = WechatMpService.new
 

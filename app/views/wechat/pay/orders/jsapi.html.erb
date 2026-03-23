@@ -1,0 +1,49 @@
+<%# JSAPI payment page — shown only when user opens pay page inside WeChat browser %>
+<%# @jsapi_params contains appId/timeStamp/nonceStr/package/signType/paySign %>
+<div class="container-sm py-16"
+     data-controller="wechat-jsapi-pay"
+     data-wechat-jsapi-pay-params-value="<%= @jsapi_params.to_json %>"
+     data-wechat-jsapi-pay-success-url-value="<%= wechat_pay_order_success_path %>">
+
+  <div class="card text-center">
+    <div class="card-header border-b border-border">
+      <div class="flex items-center justify-center gap-2 mb-2">
+        <%= lucide_icon "smartphone", class: "w-6 h-6 text-primary" %>
+        <h1 class="text-xl font-semibold text-primary">微信支付</h1>
+      </div>
+      <p class="text-sm text-secondary">点击下方按钮唤起微信支付</p>
+    </div>
+
+    <div class="card-body space-y-6">
+      <!-- 金额 -->
+      <div class="space-y-1">
+        <div class="flex items-baseline justify-center gap-1">
+          <span class="text-3xl font-bold text-primary font-mono">¥<%= sprintf("%.2f", @amount_yuan) %></span>
+        </div>
+        <p class="text-xs text-muted">青狮法律技能平台 · 试用体验</p>
+      </div>
+
+      <!-- 状态提示 -->
+      <div data-wechat-jsapi-pay-target="statusBox"
+           class="hidden flex items-center justify-center gap-3 py-3 px-4 rounded-lg bg-surface-elevated">
+        <div class="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+        <span data-wechat-jsapi-pay-target="status" class="text-sm text-secondary font-mono">
+          处理中...
+        </span>
+      </div>
+
+      <!-- 支付按钮 -->
+      <button data-wechat-jsapi-pay-target="payBtn"
+              data-action="click->wechat-jsapi-pay#pay"
+              class="btn-primary w-full text-base py-3">
+        <%= lucide_icon "credit-card", class: "w-5 h-5 mr-2 inline" %>
+        立即支付 ¥<%= sprintf("%.2f", @amount_yuan) %>
+      </button>
+
+      <!-- 错误提示 -->
+      <p data-wechat-jsapi-pay-target="error" class="hidden text-sm text-destructive font-mono"></p>
+
+      <p class="text-xs text-muted">支付完成后页面将自动跳转</p>
+    </div>
+  </div>
+</div>

@@ -1,49 +1,20 @@
-# GET /wechat/qrcode  - generates a WeChat temporary QR code for login
-# GET /wechat/check   - polls whether a QR code has been scanned; on success
-#                       creates a Session and sets the auth cookie
+# GET /wechat/qrcode - renders the WeChat login page (WxLogin JS SDK handles QR code)
+# If accessed from WeChat in-app browser, automatically redirects to MP OAuth H5 login.
 class Wechat::QrcodeController < ApplicationController
   skip_before_action :authenticate_user!, raise: false
 
   def show
-    # HTML 请求 → 渲染登录页（由前端 JS 自动获取二维码）
-    respond_to do |format|
-      format.html { render :show }
-      format.json do
-        service = WechatMpService.new
-        data    = service.create_qrcode
-        render json: {
-          ticket:         data[:ticket],
-          qrcode_url:     "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=#{CGI.escape(data[:ticket])}",
-          expire_seconds: data[:expire_seconds]
-        }
-      end
-    end
-  rescue => e
-    Rails.logger.error("WeChat QR error: #{e.message}")
-    respond_to do |format|
-      format.html { redirect_to root_path, alert: "二维码生成失败，请稍后重试" }
-      format.json { render json: { error: "二维码生成失败，请稍后重试" }, status: :service_unavailable }
-    end
-  end
+    # Already logged in — go home
+    return redirect_to root_path if current_user
 
-  def check
-    ticket  = params[:ticket].to_s.strip
-    service = WechatMpService.new
-    openid  = service.fetch_scan_result(ticket)
-
-    if openid.blank?
-      render json: { status: "pending" }
-      return
+    # WeChat in-app browser: use MP OAuth H5 login instead of WxLogin QR code
+    if wechat_browser?
+      return redirect_to wechat_mp_oauth_authorize_path(
+        purpose:   "login",
+        return_to: params[:return_to] || root_path
+      )
     end
 
-    user           = User.from_wechat(openid)
-    session_record = user.sessions.create!
-    cookies.signed.permanent[:session_token] = { value: session_record.id, httponly: true }
-
-    redirect_url = user.profile_complete? ? root_path : profile_setup_path
-    render json: { status: "ok", redirect_url: redirect_url }
-  rescue => e
-    Rails.logger.error("WeChat check error: #{e.message}")
-    render json: { error: "登录失败，请重试" }, status: :internal_server_error
+    # PC browser: render WxLogin QR code page as usual
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_22_134044) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_23_083209) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -328,8 +328,12 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_22_134044) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "wechat_openid"
+    t.string "wechat_unionid"
+    t.string "wechat_mp_openid"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["wechat_mp_openid"], name: "index_users_on_wechat_mp_openid", unique: true
     t.index ["wechat_openid"], name: "index_users_on_wechat_openid", unique: true
+    t.index ["wechat_unionid"], name: "index_users_on_wechat_unionid", unique: true
   end
 
   create_table "verification_codes", force: :cascade do |t|
