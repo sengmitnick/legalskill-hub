@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
+/* eslint-disable max-len */
 // 省市区数据（同 profile_setup_controller.js）
 const REGIONS = {
   "北京市": { "北京市": ["东城区","西城区","朝阳区","丰台区","石景山区","海淀区","门头沟区","房山区","通州区","顺义区","昌平区","大兴区","怀柔区","平谷区","密云区","延庆区"] },
@@ -35,8 +36,14 @@ const REGIONS = {
   "青海省": { "西宁市": ["城东区","城中区","城西区","城北区","湟中区","大通县","湟源县"] }
 }
 
+type RegionData = Record<string, Record<string, string[]>>
+
 export default class extends Controller {
   static targets = ["province", "city", "district"]
+
+  declare readonly provinceTarget:  HTMLSelectElement
+  declare readonly cityTarget:      HTMLSelectElement
+  declare readonly districtTarget:  HTMLSelectElement
 
   connect() {
     this.populateProvinces()
@@ -61,7 +68,7 @@ export default class extends Controller {
     const sel = this.provinceTarget
     const placeholder = sel.querySelector("option")
     sel.innerHTML = ""
-    sel.appendChild(placeholder)
+    if (placeholder) sel.appendChild(placeholder)
     Object.keys(REGIONS).forEach(p => {
       const opt = document.createElement("option")
       opt.value = p
@@ -78,8 +85,9 @@ export default class extends Controller {
     citySel.innerHTML = '<option value="">请选择市</option>'
     districtSel.innerHTML = '<option value="">请选择区/县</option>'
 
-    if (!province || !REGIONS[province]) return
-    Object.keys(REGIONS[province]).forEach(c => {
+    const regions = REGIONS as RegionData
+    if (!province || !regions[province]) return
+    Object.keys(regions[province]).forEach(c => {
       const opt = document.createElement("option")
       opt.value = c
       opt.textContent = c
@@ -91,11 +99,12 @@ export default class extends Controller {
     const province = this.provinceTarget.value
     const city = this.cityTarget.value
     const districtSel = this.districtTarget
+    const regions = REGIONS as RegionData
 
     districtSel.innerHTML = '<option value="">请选择区/县</option>'
-    if (!province || !city || !REGIONS[province]?.[city]) return
+    if (!province || !city || !regions[province]?.[city]) return
 
-    REGIONS[province][city].forEach(d => {
+    regions[province][city].forEach(d => {
       const opt = document.createElement("option")
       opt.value = d
       opt.textContent = d
