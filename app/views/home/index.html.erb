@@ -899,6 +899,8 @@
 
     // 桌面更新
     if (countEl) countEl.textContent = plan3Count;
+    // 同步所有 plan3 quantity hidden field（页面可能有多个购买按钮）
+    document.querySelectorAll('#plan3-quantity-input').forEach(function(el) { el.value = plan3Count; });
     if (totalEl) totalEl.textContent = unitPrice.toLocaleString();
     if (lobsterCountEl) lobsterCountEl.textContent = '青狮龙虾 ' + plan3Count + ' 只';
 

@@ -30,12 +30,28 @@ module Wechat
         @plan_key = params[:plan].presence
         plan_cfg  = plan_config(@plan_key)
 
+        # plan3 支持多人团购，quantity 由前端传入
+        qty = if @plan_key == "plan3"
+          [[params[:quantity].to_i, 1].max, 3].min
+        else
+          1
+        end
+
+        # plan3 动态定价：基价 2999，每增1人立减300，最多3人
+        amount = if @plan_key == "plan3" && !Rails.env.development?
+          unit_price = 2999_00 - (qty - 1) * 300_00
+          unit_price * qty
+        else
+          plan_cfg[:amount]
+        end
+
         # Idempotent: one pending order per user per plan
         order = WechatOrder.pending.find_or_initialize_by(user: current_user, plan: @plan_key)
         order.out_trade_no ||= SecureRandom.hex(16)
-        order.amount       = plan_cfg[:amount]   # always use current price (handles dev/prod override)
+        order.amount       = amount
         order.description  = plan_cfg[:description]
         order.plan         = @plan_key
+        order.quantity     = qty
         order.save!
 
         service = WechatPayService.new
@@ -57,8 +73,9 @@ module Wechat
             user:         current_user,
             plan:         @plan_key,
             out_trade_no: SecureRandom.hex(16),
-            amount:       plan_config(@plan_key)[:amount],
-            description:  plan_config(@plan_key)[:description]
+            amount:       order&.amount || plan_config(@plan_key)[:amount],
+            description:  plan_config(@plan_key)[:description],
+            quantity:     qty
           )
           service = WechatPayService.new
           return wechat_browser? ? create_jsapi(retry_order, service) : create_native(retry_order, service)
