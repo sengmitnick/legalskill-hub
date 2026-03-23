@@ -3,6 +3,8 @@
 <%# The parent wrapper determines the layout %>
 
 <%= link_to "首页", root_path, class: "block px-3 py-2 md:p-0 rounded-lg md:rounded-none hover:bg-surface md:hover:bg-transparent text-secondary hover:text-primary transition-colors #{'font-semibold text-primary bg-surface/50 md:bg-transparent' if current_path == '/'}" %>
-<%# link_to "技能市场", skills_path — 已隐藏，与「交付技能」板块重叠 %>
+<%= link_to "养虾方案", root_path(anchor: 'pricing'), class: "block px-3 py-2 md:p-0 rounded-lg md:rounded-none hover:bg-surface md:hover:bg-transparent text-secondary hover:text-primary transition-colors" %>
+<%= link_to "交付技能", root_path(anchor: 'delivered-skills'), class: "block px-3 py-2 md:p-0 rounded-lg md:rounded-none hover:bg-surface md:hover:bg-transparent text-secondary hover:text-primary transition-colors" %>
+<%= link_to "线上课程", root_path(anchor: 'video-resources'), class: "block px-3 py-2 md:p-0 rounded-lg md:rounded-none hover:bg-surface md:hover:bg-transparent text-secondary hover:text-primary transition-colors" %>
+<%= link_to "线下课程", root_path(anchor: 'offline-classes'), class: "block px-3 py-2 md:p-0 rounded-lg md:rounded-none hover:bg-surface md:hover:bg-transparent text-secondary hover:text-primary transition-colors" %>
 <%= link_to "龙虾社群", root_path(anchor: 'community'), class: "block px-3 py-2 md:p-0 rounded-lg md:rounded-none hover:bg-surface md:hover:bg-transparent text-secondary hover:text-primary transition-colors" %>
-<%= link_to "线下课程", "https://qinglion.ai", target: "_blank", rel: "noopener noreferrer", class: "block px-3 py-2 md:p-0 rounded-lg md:rounded-none hover:bg-surface md:hover:bg-transparent text-secondary hover:text-primary transition-colors" %>
