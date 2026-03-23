@@ -21,6 +21,7 @@ export default class extends Controller {
       console.log('[SystemMonitor] Global subscription already exists, skipping')
       return
     }
+    if (!consumer) return // user not signed in, skip cable connection
 
     globalSubscription = consumer.subscriptions.create(
       {

@@ -3,4 +3,6 @@
 
 import { createConsumer } from '@rails/actioncable'
 
-export default createConsumer()
+// Only create consumer when user is signed in to avoid unauthorized connection errors
+const isSignedIn = document.body?.dataset?.userSignedIn === 'true'
+export default isSignedIn ? createConsumer() : null

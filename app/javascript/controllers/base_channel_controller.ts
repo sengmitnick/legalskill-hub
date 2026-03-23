@@ -56,6 +56,7 @@ export class BaseChannelController extends Controller<HTMLElement> {
    */
   protected createSubscription(channelName: string, params: Record<string, any> = {}): void {
     if (this.subscription) return
+    if (!consumer) return // user not signed in, skip cable connection
 
     this.subscription = consumer.subscriptions.create(
       { channel: channelName, ...params },
