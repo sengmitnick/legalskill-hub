@@ -20,16 +20,16 @@
           <%= form.text_field :title, placeholder: "Enter title..." %>
         </div>
 
-        <!-- Bilibili url -->
+        <!-- 视频链接 -->
         <div class="form-group">
-          <%= form.label :bilibili_url %>
-          <%= form.text_field :bilibili_url, placeholder: "Enter bilibili url..." %>
+          <%= form.label :bilibili_url, "视频链接" %>
+          <%= form.text_field :bilibili_url, placeholder: "输入视频链接（七牛云直链或其他视频地址）..." %>
         </div>
 
         <!-- Cover Image -->
         <div class="form-group">
-          <%= form.label :cover_image, "Cover Image URL" %>
-          <%= form.text_field :cover_image, placeholder: "Enter cover image URL..." %>
+          <%= form.label :cover_image, "封面图片 URL" %>
+          <%= form.text_field :cover_image, placeholder: "输入封面图片链接..." %>
         </div>
 
         <!-- Duration -->
