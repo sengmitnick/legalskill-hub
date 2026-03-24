@@ -4,7 +4,7 @@ module Wechat
       before_action :authenticate_user!
 
       PLANS = {
-        "plan1" => { amount: 99900,  description: "青狮龙虾 · 社群版 + 1年期使用权" },
+        "plan1" => { amount: 129900,  description: "青狮龙虾 · 社群版 + 1年期使用权" },
         "plan2" => { amount: 199900, description: "青狮龙虾 · 线上课程 + 1年期使用权" },
         "plan3" => { amount: 299900, description: "青狮龙虾 · 线下课程 + 1年期使用权" },
         "plan4" => { amount: 199900, description: "青狮龙虾 · 团队线下内训 + 1年期使用权" }
