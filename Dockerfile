@@ -9,8 +9,8 @@ ENV RAILS_ENV="production" \
 
 # Ensure correct Bundler version, then install gems
 COPY --chown=ruby:ruby Gemfile Gemfile.lock ./
-RUN gem install bundler -v $(grep -A1 "BUNDLED WITH" Gemfile.lock | tail -1 | tr -d ' ') --no-document \
-    && bundle install --jobs=4 --retry=3
+RUN gem install bundler:2.6.3 --no-document \
+    && bundle _2.6.3_ install --jobs=4 --retry=3 --without development test
 
 # Check and install only missing npm packages (if package.json changed)
 COPY --chown=ruby:ruby package.json package-lock.json ./
