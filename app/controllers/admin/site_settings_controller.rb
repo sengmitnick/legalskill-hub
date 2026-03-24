@@ -4,8 +4,6 @@ class Admin::SiteSettingsController < Admin::BaseController
     install_cmd_win
     uninstall_cmd_mac
     uninstall_cmd_win
-    hero_video_url
-    hero_video_title
   ].freeze
 
   def index

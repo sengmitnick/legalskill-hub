@@ -10,8 +10,6 @@ class HomeController < ApplicationController
     @skill_categories = Rails.cache.fetch("home:skill_categories", expires_in: 10.minutes) do
       Category.for_skill.order(:name).to_a
     end
-    @hero_video_url   = SiteSetting.cached("hero_video_url")
-    @hero_video_title = SiteSetting.cached("hero_video_title").presence || "青狮龙虾快速上手"
     @install_cmd_mac   = SiteSetting.cached("install_cmd_mac")
     @install_cmd_win   = SiteSetting.cached("install_cmd_win")
     @uninstall_cmd_mac = SiteSetting.cached("uninstall_cmd_mac")

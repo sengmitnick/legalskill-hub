@@ -30,14 +30,7 @@
         <%= lucide_icon "rocket", class: "w-4 h-4" %>
         <span>跟着镐赞养好龙虾</span>
       <% end %>
-      <% if @hero_video_url.present? %>
-        <a href="<%= video_resources_path %>"
-          class="btn-md font-mono text-sm tracking-widest inline-flex items-center justify-center gap-2 w-full sm:w-auto"
-          style="background: hsl(174,100%,44%); color: #0a0f0d; font-weight: 700;">
-          <%= lucide_icon "play-circle", class: "w-4 h-4" %>
-          <span>学习公开课</span>
-        </a>
-      <% end %>
+
     </div>
 
     <!-- 安装 / 卸载命令 -->
@@ -174,15 +167,6 @@
   </div>
 </section>
 
-<% if @hero_video_url.present? %>
-<!-- stimulus-validator: allow-script -->
-<script>
-  // ESC 键关闭技能演示弹窗
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') { closeSkillVideo(); }
-  });
-</script>
-
 <!-- 技能演示弹窗 -->
 <div id="skill-video-modal"
      class="hidden fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -200,9 +184,11 @@
     </div>
   </div>
 </div>
-
 <!-- stimulus-validator: allow-script -->
 <script>
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { closeSkillVideo(); }
+  });
   function openSkillVideo(url, title) {
     var modal = document.getElementById('skill-video-modal');
     var player = document.getElementById('skill-video-player');
@@ -220,7 +206,7 @@
     player.src = '';
   }
 </script>
-<% end %>
+
 <!-- SECTION: 3 Reasons -->
 <section id="reasons" class="py-20 bg-surface-elevated border-t border-border">
   <div class="container-xl mx-auto px-4 sm:px-6">
