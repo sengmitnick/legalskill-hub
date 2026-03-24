@@ -93,6 +93,17 @@ export default class extends Controller {
       opt.textContent = c
       citySel.appendChild(opt)
     })
+
+    // 律所自动填入：若有 pending city，自动选中并继续填区
+    const pendingCity = this.provinceTarget.dataset.pendingCity
+    const pendingDistrict = this.provinceTarget.dataset.pendingDistrict
+    if (pendingCity) {
+      citySel.value = pendingCity
+      this.provinceTarget.dataset.pendingCity = ""
+      // 触发市联动填区
+      this.cityTarget.dataset.pendingDistrict = pendingDistrict || ""
+      this.onCityChange()
+    }
   }
 
   onCityChange() {
@@ -110,5 +121,12 @@ export default class extends Controller {
       opt.textContent = d
       districtSel.appendChild(opt)
     })
+
+    // 律所自动填入：若有 pending district，自动选中
+    const pendingDistrict = this.cityTarget.dataset.pendingDistrict
+    if (pendingDistrict) {
+      districtSel.value = pendingDistrict
+      this.cityTarget.dataset.pendingDistrict = ""
+    }
   }
 }

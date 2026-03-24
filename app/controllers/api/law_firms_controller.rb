@@ -6,8 +6,8 @@ class Api::LawFirmsController < ApplicationController
   def autocomplete
     q = params[:q].to_s.strip
     if q.length >= 1
-      firms = LawFirm.search_by_name(q).pluck(:id, :name)
-      results = firms.map { |id, name| { id: id, name: name } }
+      firms = LawFirm.search_by_name(q).pluck(:id, :name, :province, :city, :district)
+      results = firms.map { |id, name, province, city, district| { id: id, name: name, province: province, city: city, district: district } }
     else
       results = []
     end
