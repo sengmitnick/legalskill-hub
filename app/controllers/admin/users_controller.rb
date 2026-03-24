@@ -7,14 +7,10 @@ module Admin
                    .page(params[:page])
                    .per(10)
 
-      # Filter by verified status
-      if params[:verified].present?
-        @users = @users.where(verified: params[:verified] == 'true')
-      end
-
-      # Search by name or email
+      # Search by name or phone
       if params[:q].present?
-        @users = @users.where("name ILIKE ? OR email ILIKE ?", "%#{params[:q]}%", "%#{params[:q]}%")
+        @users = @users.joins("LEFT JOIN user_profiles ON user_profiles.user_id = users.id")
+                       .where("users.name ILIKE ? OR user_profiles.phone ILIKE ?", "%#{params[:q]}%", "%#{params[:q]}%")
       end
 
       # Calculate statistics
