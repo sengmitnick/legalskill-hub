@@ -34,7 +34,7 @@
           </div>
           <div class="flex justify-between text-sm">
             <span class="text-muted">支付时间</span>
-            <span class="text-secondary"><%= @order.updated_at.in_time_zone("Beijing").strftime("%Y-%m-%d %H:%M") %></span>
+            <span class="text-secondary"><%= (@order.paid_at || @order.updated_at).in_time_zone("Beijing").strftime("%Y-%m-%d %H:%M") %></span>
           </div>
         </div>
       <% end %>
