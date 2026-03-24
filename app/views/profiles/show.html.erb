@@ -33,7 +33,7 @@
           </div>
 
           <div>
-            <label class="form-label">所在地区</label>
+            <label class="form-label">律所所在地区</label>
             <div class="text-primary font-mono font-medium">
               <% location = [@user.province, @user.city, @user.district].compact.reject(&:blank?).join(" ") %>
               <%= location.presence || "—" %>
