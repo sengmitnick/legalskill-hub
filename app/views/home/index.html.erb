@@ -691,21 +691,30 @@
 
     <!-- Video Grid -->
     <% videos = VideoResource.includes(:category).order(created_at: :desc).limit(3) %>
+    <% home_can_watch_premium = user_signed_in? && current_user.has_premium_video_access? %>
     <% if videos.any? %>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
       <% videos.each do |video| %>
-      <div class="video-card bg-surface-elevated">
+      <% locked = !video.free? && !home_can_watch_premium %>
+      <div class="video-card bg-surface-elevated <%= 'opacity-70' if locked %>">
         <div class="video-thumbnail">
           <img src="<%= video.cover_image_url %>"
                alt="<%= video.title %>"
-               class="w-full h-full object-cover"
+               class="w-full h-full object-cover <%= 'blur-sm' if locked %>"
                referrerpolicy="no-referrer"
                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=600&h=340&fit=crop&q=80';">
-          <%= link_to video_resource_path(video),
-                class: "absolute inset-0 flex items-center justify-center hover:bg-primary/5 transition-colors" do %>
-            <div class="w-12 h-12 border border-primary flex items-center justify-center bg-surface/80 hover:bg-primary/20 transition-colors cursor-pointer">
-              <%= lucide_icon "play", class: "w-5 h-5 text-primary ml-0.5" %>
+          <% if locked %>
+            <div class="absolute inset-0 flex flex-col items-center justify-center bg-surface/70">
+              <%= lucide_icon "lock", class: "w-7 h-7 text-muted mb-2" %>
+              <span class="text-xs font-mono text-muted">进阶课程</span>
             </div>
+          <% else %>
+            <%= link_to video_resource_path(video),
+                  class: "absolute inset-0 flex items-center justify-center hover:bg-primary/5 transition-colors" do %>
+              <div class="w-12 h-12 border border-primary flex items-center justify-center bg-surface/80 hover:bg-primary/20 transition-colors cursor-pointer">
+                <%= lucide_icon "play", class: "w-5 h-5 text-primary ml-0.5" %>
+              </div>
+            <% end %>
           <% end %>
           <% if video.duration.present? %>
           <div class="absolute top-3 right-3 px-2 py-0.5 bg-surface/90 border border-border text-xs font-mono text-muted">
@@ -716,12 +725,20 @@
         </div>
         <div class="p-5">
           <div class="sys-label mb-2"><%= video.category.name.upcase %></div>
-          <%= link_to video_resource_path(video), class: "block group" do %>
-            <h3 class="font-sans text-base font-semibold text-primary mb-2 group-hover:text-primary-light transition-colors"><%= video.title %></h3>
+          <% if locked %>
+            <h3 class="font-sans text-base font-semibold text-muted mb-2"><%= video.title %></h3>
+          <% else %>
+            <%= link_to video_resource_path(video), class: "block group" do %>
+              <h3 class="font-sans text-base font-semibold text-primary mb-2 group-hover:text-primary-light transition-colors"><%= video.title %></h3>
+            <% end %>
           <% end %>
           <div class="flex items-center justify-between text-xs font-mono text-muted border-t border-border pt-3">
             <span><%= lucide_icon "folder", class: "w-3 h-3 inline" %> <%= video.category.name %></span>
-            <span><%= lucide_icon "eye", class: "w-3 h-3 inline" %> <%= number_with_delimiter(video.views_count) %></span>
+            <% if locked %>
+              <span><%= lucide_icon "lock", class: "w-3 h-3 inline" %> 需购买课程</span>
+            <% else %>
+              <span><%= lucide_icon "eye", class: "w-3 h-3 inline" %> <%= number_with_delimiter(video.views_count) %></span>
+            <% end %>
           </div>
         </div>
       </div>
