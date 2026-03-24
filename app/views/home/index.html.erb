@@ -981,9 +981,11 @@
 
 
     <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
-      <%= link_to "#pricing", class: "btn-outline btn-lg inline-flex items-center justify-center gap-3 font-mono text-sm tracking-wider w-full sm:w-auto" do %>
-        <%= lucide_icon "package", class: "w-4 h-4" %>
-        <span>跟着镐赞养好龙虾</span>
+      <%= link_to "#pricing",
+            class: "btn-lg font-mono text-sm tracking-wider inline-flex items-center justify-center gap-3 w-full sm:w-auto",
+            style: "background: hsl(174,100%,44%); color: #0a0f0d; font-weight: 700;" do %>
+        <%= lucide_icon "rocket", class: "w-4 h-4" %>
+        <span>跟着镐赞养龙虾</span>
       <% end %>
     </div>
   </div>
