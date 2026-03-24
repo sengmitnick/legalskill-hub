@@ -9,6 +9,13 @@ class ProfilesController < ApplicationController
 
   def edit
     @user = current_user
+    # 地区以后台律所数据为准：若用户有关联律所且律所有地区，覆盖 profile 中的旧值
+    if (firm = LawFirm.find_by(name: @user.profile&.company)) && firm.province.present?
+      profile = @user.profile || @user.build_profile
+      profile.province = firm.province
+      profile.city     = firm.city
+      profile.district = firm.district
+    end
   end
 
   def update
@@ -21,17 +28,29 @@ class ProfilesController < ApplicationController
     # 解析律所：优先用选中的已有律所，否则用输入的文本自动创建
     company_name = resolve_company_name
 
+    # 地区以律所为准：若选中已有律所且律所有地区，直接用律所地区
+    firm = LawFirm.find_by(id: params[:law_firm_id]) if params[:law_firm_id].present?
+    if firm&.province.present?
+      province = firm.province
+      city     = firm.city
+      district = firm.district
+    else
+      province = params[:province]
+      city     = params[:city]
+      district = params[:district]
+    end
+
     # 省市必填校验
-    if params[:province].blank? || params[:city].blank?
+    if province.blank? || city.blank?
       flash.now[:alert] = "请选择所在省份和城市"
       return render :edit, status: :unprocessable_entity
     end
 
     # 更新 profile 中可编辑的字段
     profile_attrs = { company: company_name }
-    profile_attrs[:province] = params[:province]
-    profile_attrs[:city]     = params[:city]
-    profile_attrs[:district] = params[:district]  # 可为空
+    profile_attrs[:province] = province
+    profile_attrs[:city]     = city
+    profile_attrs[:district] = district
 
     if profile.update(profile_attrs)
       redirect_to profile_path, notice: "资料已更新"
