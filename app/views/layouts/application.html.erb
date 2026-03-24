@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="turbo-cache-control" content="no-cache">
+    <%# Turbo Cache：默认允许缓存，提升导航速度。需要实时数据的页面在各自 view 里设置 no-cache %>
+    <%= content_for?(:turbo_cache) ? yield(:turbo_cache) : tag(:meta, name: "turbo-cache-control", content: "no-preview") %>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="cleartype" content="on">
@@ -22,9 +23,22 @@
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
     <%= content_for?(:head) ? yield(:head) : '' %>
+
+    <%# === 性能优化：关键资源 preload === %>
+    <%# CSS preload — 消除 render-blocking %>
+    <link rel="preload" href="<%= asset_path('application.css') %>" as="style">
+    <%# 关键字体 preload — latin subset，最常用 %>
+    <link rel="preload" href="<%= asset_path('sg-light.woff2') %>" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="<%= asset_path('jb-light.woff2') %>" as="font" type="font/woff2" crossorigin>
+    <%# DNS prefetch for external APIs %>
+    <link rel="dns-prefetch" href="//res.wx.qq.com">
+    <%# 关键图片 preload — 首屏 Logo %>
+    <link rel="preload" href="<%= asset_path('app-logo.svg') %>" as="image" type="image/svg+xml">
+
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <!-- Load error handler early to catch all errors -->
     <%= javascript_include_tag 'error_handler' if Rails.env.development? %>
+    <%# JS type=module 天然 deferred，无需额外 defer 属性 %>
     <%= javascript_include_tag 'application', type: "module" %>
     <!-- Generate new favicon at `images/app-favicon.svg` at the first time, remove this line after generated  -->
     <%= favicon_link_tag asset_path("app-favicon.svg") unless Rails.env.test? %>

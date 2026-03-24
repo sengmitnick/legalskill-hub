@@ -77,8 +77,16 @@ Rails.application.configure do
   # want to log everything, set the level to "debug".
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
-  # Clacky: Enable caching
-  config.cache_store = :memory_store
+  # Clacky: Enable caching (memory_store，单进程部署适用)
+  config.cache_store = :memory_store, { size: 64.megabytes }
+
+  # Gzip 压缩所有响应（HTML/JSON/CSS/JS）
+  config.middleware.use Rack::Deflater
+
+  # 静态资产长期缓存 (Propshaft 已加指纹，1 年安全)
+  config.public_file_server.headers = {
+    "Cache-Control" => "public, max-age=31536000, immutable"
+  }
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter = :resque

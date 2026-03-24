@@ -700,6 +700,8 @@
           <img src="<%= video.cover_image_url %>"
                alt="<%= video.title %>"
                class="w-full h-full object-cover"
+               loading="lazy"
+               decoding="async"
                referrerpolicy="no-referrer"
                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=600&h=340&fit=crop&q=80';">
           <% if locked %>
