@@ -26,15 +26,17 @@
 
     <!-- CTA 按钮 -->
     <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-      <%= link_to "#pricing", class: "btn-outline btn-md font-mono text-sm tracking-widest inline-flex items-center justify-center gap-2 w-full sm:w-auto" do %>
-        <%= lucide_icon "rocket", class: "w-4 h-4" %>
-        <span>跟着镐赞养好龙虾</span>
-      <% end %>
       <%= link_to video_resources_path,
             class: "btn-md font-mono text-sm tracking-widest inline-flex items-center justify-center gap-2 w-full sm:w-auto",
             style: "background: hsl(174,100%,44%); color: #0a0f0d; font-weight: 700;" do %>
         <%= lucide_icon "play-circle", class: "w-4 h-4" %>
         <span>查看安装视频</span>
+      <% end %>
+      <%= link_to "#pricing",
+            class: "btn-md font-mono text-sm tracking-widest inline-flex items-center justify-center gap-2 w-full sm:w-auto",
+            style: "background: hsl(174,100%,44%); color: #0a0f0d; font-weight: 700;" do %>
+        <%= lucide_icon "rocket", class: "w-4 h-4" %>
+        <span>跟着镐赞养好龙虾</span>
       <% end %>
 
     </div>
