@@ -50,7 +50,8 @@
         </div>
         <div class="flex items-center rounded-lg overflow-hidden border" style="border-color: hsl(174,100%,44%,0.3); background: hsl(174,100%,44%,0.06);">
           <code class="flex-1 px-4 py-3 text-xs font-mono text-left truncate" style="color: hsl(174,100%,65%)">/bin/bash -c "$(curl -sSL https://oss.1024code.com/install.sh)"</code>
-          <button onclick="copyCommand(this, '/bin/bash -c \"$(curl -sSL https://oss.1024code.com/install.sh)\"')"
+          <button data-copy='/bin/bash -c "$(curl -sSL https://oss.1024code.com/install.sh)"'
+                  onclick="copyCommand(this)"
                   class="shrink-0 px-4 py-3 flex items-center transition-colors hover:bg-white/5"
                   style="color: hsl(174,100%,44%); border-left: 1px solid hsl(174,100%,44%,0.3);"
                   title="复制">
@@ -67,7 +68,8 @@
         </div>
         <div class="flex items-center rounded-lg overflow-hidden border" style="border-color: hsl(210,100%,65%,0.3); background: hsl(210,100%,65%,0.06);">
           <code class="flex-1 px-4 py-3 text-xs font-mono text-left truncate" style="color: hsl(210,100%,75%)">powershell -c "irm https://oss.1024code.com/install.ps1 | iex"</code>
-          <button onclick="copyCommand(this, 'powershell -c \"irm https://oss.1024code.com/install.ps1 | iex\"')"
+          <button data-copy='powershell -c "irm https://oss.1024code.com/install.ps1 | iex"'
+                  onclick="copyCommand(this)"
                   class="shrink-0 px-4 py-3 flex items-center transition-colors hover:bg-white/5"
                   style="color: hsl(210,100%,65%); border-left: 1px solid hsl(210,100%,65%,0.3);"
                   title="复制">
@@ -79,7 +81,8 @@
 
     <!-- stimulus-validator: allow-script -->
     <script>
-      function copyCommand(btn, text) {
+      function copyCommand(btn) {
+        const text = btn.dataset.copy;
         navigator.clipboard.writeText(text).then(() => {
           const icon = btn.querySelector('svg');
           btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
