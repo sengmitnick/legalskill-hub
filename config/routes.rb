@@ -150,7 +150,7 @@ Rails.application.routes.draw do
     post 'login', to: 'sessions#create'
     delete 'logout', to: 'sessions#destroy', as: :logout
     resource :account, only: [:edit, :update]
-    resource :site_settings, only: [:edit, :update]
+
 
     # Mount GoodJob dashboard
     mount GoodJob::Engine => 'good_job', :constraints => AdminConstraint.new
