@@ -41,7 +41,7 @@
     </div>
 
     <!-- 安装命令 -->
-    <div class="mt-10 flex flex-col items-center gap-3 w-full max-w-xl mx-auto">
+    <div class="mt-12 flex flex-col items-center gap-5 w-full max-w-xl mx-auto">
       <%# macOS %>
       <div class="w-full">
         <div class="flex items-center gap-1.5 mb-1.5">
@@ -49,9 +49,9 @@
           <span class="text-xs font-mono tracking-widest" style="color: hsl(174,100%,44%)">macOS / 苹果电脑</span>
         </div>
         <div class="flex items-center rounded-lg overflow-hidden border" style="border-color: hsl(174,100%,44%,0.3); background: hsl(174,100%,44%,0.06);">
-          <code class="flex-1 px-4 py-2.5 text-xs font-mono text-left truncate" style="color: hsl(174,100%,65%)">/bin/bash -c "$(curl -sSL https://oss.1024code.com/install.sh)"</code>
+          <code class="flex-1 px-4 py-3 text-xs font-mono text-left truncate" style="color: hsl(174,100%,65%)">/bin/bash -c "$(curl -sSL https://oss.1024code.com/install.sh)"</code>
           <button onclick="copyCommand(this, '/bin/bash -c \"$(curl -sSL https://oss.1024code.com/install.sh)\"')"
-                  class="shrink-0 px-3 py-2.5 flex items-center transition-colors hover:bg-white/5"
+                  class="shrink-0 px-4 py-3 flex items-center transition-colors hover:bg-white/5"
                   style="color: hsl(174,100%,44%); border-left: 1px solid hsl(174,100%,44%,0.3);"
                   title="复制">
             <%= lucide_icon "copy", class: "w-4 h-4" %>
@@ -66,9 +66,9 @@
           <span class="text-xs font-mono tracking-widest" style="color: hsl(210,100%,65%)">Windows / 电脑</span>
         </div>
         <div class="flex items-center rounded-lg overflow-hidden border" style="border-color: hsl(210,100%,65%,0.3); background: hsl(210,100%,65%,0.06);">
-          <code class="flex-1 px-4 py-2.5 text-xs font-mono text-left truncate" style="color: hsl(210,100%,75%)">powershell -c "irm https://oss.1024code.com/install.ps1 | iex"</code>
+          <code class="flex-1 px-4 py-3 text-xs font-mono text-left truncate" style="color: hsl(210,100%,75%)">powershell -c "irm https://oss.1024code.com/install.ps1 | iex"</code>
           <button onclick="copyCommand(this, 'powershell -c \"irm https://oss.1024code.com/install.ps1 | iex\"')"
-                  class="shrink-0 px-3 py-2.5 flex items-center transition-colors hover:bg-white/5"
+                  class="shrink-0 px-4 py-3 flex items-center transition-colors hover:bg-white/5"
                   style="color: hsl(210,100%,65%); border-left: 1px solid hsl(210,100%,65%,0.3);"
                   title="复制">
             <%= lucide_icon "copy", class: "w-4 h-4" %>
