@@ -5,17 +5,12 @@ class ProfilesController < ApplicationController
 
   def show
     @user = current_user
+    sync_location_from_law_firm
   end
 
   def edit
     @user = current_user
-    # 地区以后台律所数据为准：若用户有关联律所且律所有地区，覆盖 profile 中的旧值
-    if (firm = LawFirm.find_by(name: @user.profile&.company)) && firm.province.present?
-      profile = @user.profile || @user.build_profile
-      profile.province = firm.province
-      profile.city     = firm.city
-      profile.district = firm.district
-    end
+    sync_location_from_law_firm
   end
 
   def update
@@ -60,6 +55,15 @@ class ProfilesController < ApplicationController
   end
 
   private
+
+  def sync_location_from_law_firm
+    firm = LawFirm.find_by(name: @user.profile&.company)
+    return unless firm&.province.present?
+    profile = @user.profile || @user.build_profile
+    profile.province = firm.province
+    profile.city     = firm.city
+    profile.district = firm.district
+  end
 
   def resolve_company_name
     # 用户从下拉选中了已有律所
