@@ -146,6 +146,11 @@ Rails.application.routes.draw do
     resources :law_firms
     resources :admin_oplogs, only: [:index, :show]
     resources :administrators
+    resources :site_settings, only: [:index], param: :key do
+      collection do
+        patch ':key', action: :update, as: :update
+      end
+    end
     get 'login', to: 'sessions#new', as: :login
     post 'login', to: 'sessions#create'
     delete 'logout', to: 'sessions#destroy', as: :logout

@@ -12,6 +12,10 @@ class HomeController < ApplicationController
     end
     @hero_video_url   = SiteSetting.cached("hero_video_url")
     @hero_video_title = SiteSetting.cached("hero_video_title").presence || "青狮龙虾快速上手"
+    @install_cmd_mac   = SiteSetting.cached("install_cmd_mac")
+    @install_cmd_win   = SiteSetting.cached("install_cmd_win")
+    @uninstall_cmd_mac = SiteSetting.cached("uninstall_cmd_mac")
+    @uninstall_cmd_win = SiteSetting.cached("uninstall_cmd_win")
     @delivered_skills = Rails.cache.fetch("home:delivered_skills", expires_in: 5.minutes) do
       DeliveredSkill.ordered.to_a
     end
