@@ -52,8 +52,13 @@ class ProfilesController < ApplicationController
     # 用户手动输入了律所名
     company = params[:company].to_s.strip
     if company.present?
-      # 自动 find_or_create，保证后台有记录
-      LawFirm.find_or_create_by(name: company)
+      # 自动 find_or_create，保证后台有记录，同时写入省市区
+      firm = LawFirm.find_or_create_by(name: company)
+      firm.update(
+        province: params[:province].presence,
+        city:     params[:city].presence,
+        district: params[:district].presence
+      ) if firm.province.blank? && params[:province].present?
       return company
     end
 
