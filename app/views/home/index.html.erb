@@ -696,18 +696,21 @@
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
       <% videos.each do |video| %>
       <% locked = !video.free? && !home_can_watch_premium %>
-      <div class="video-card bg-surface-elevated <%= 'opacity-70' if locked %>">
+      <div class="video-card bg-surface-elevated">
         <div class="video-thumbnail">
           <img src="<%= video.cover_image_url %>"
                alt="<%= video.title %>"
-               class="w-full h-full object-cover <%= 'blur-sm' if locked %>"
+               class="w-full h-full object-cover"
                referrerpolicy="no-referrer"
                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=600&h=340&fit=crop&q=80';">
           <% if locked %>
-            <div class="absolute inset-0 flex flex-col items-center justify-center bg-surface/70">
-              <%= lucide_icon "lock", class: "w-7 h-7 text-muted mb-2" %>
-              <span class="text-xs font-mono text-muted">进阶课程</span>
-            </div>
+            <button type="button"
+                    onclick="alert('此视频为进阶课程，需购买线上课程、线下课程或团队内训后才能观看。')"
+                    class="absolute inset-0 flex items-center justify-center hover:bg-primary/5 transition-colors cursor-pointer w-full">
+              <div class="w-12 h-12 border border-border flex items-center justify-center bg-surface/80">
+                <%= lucide_icon "lock", class: "w-5 h-5 text-primary" %>
+              </div>
+            </button>
           <% else %>
             <%= link_to video_resource_path(video),
                   class: "absolute inset-0 flex items-center justify-center hover:bg-primary/5 transition-colors" do %>
@@ -726,7 +729,11 @@
         <div class="p-5">
           <div class="sys-label mb-2"><%= video.category.name.upcase %></div>
           <% if locked %>
-            <h3 class="font-sans text-base font-semibold text-muted mb-2"><%= video.title %></h3>
+            <button type="button"
+                    onclick="alert('此视频为进阶课程，需购买线上课程、线下课程或团队内训后才能观看。')"
+                    class="block text-left w-full">
+              <h3 class="font-sans text-base font-semibold text-primary mb-2 hover:text-primary-light transition-colors cursor-pointer"><%= video.title %></h3>
+            </button>
           <% else %>
             <%= link_to video_resource_path(video), class: "block group" do %>
               <h3 class="font-sans text-base font-semibold text-primary mb-2 group-hover:text-primary-light transition-colors"><%= video.title %></h3>
