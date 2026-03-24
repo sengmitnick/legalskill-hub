@@ -1,0 +1,116 @@
+<% content_for :title, "我的工具" %>
+
+<div class="container-lg py-12">
+  <!-- 页头 -->
+  <div class="mb-8 flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold font-mono text-primary">我的工具</h1>
+      <p class="text-secondary font-mono mt-2 text-sm">青狮龙虾序列号 · 共 <%= @serial_keys.count %> 个</p>
+    </div>
+    <%= link_to orders_path, class: "text-xs font-mono text-muted hover:text-secondary flex items-center gap-1" do %>
+      <%= lucide_icon "receipt", class: "w-4 h-4" %>
+      <span>查看我的订单</span>
+    <% end %>
+  </div>
+
+  <% if @serial_keys.empty? %>
+    <!-- 空状态 -->
+    <div class="card">
+      <div class="card-body py-16 text-center space-y-4">
+        <%= lucide_icon "key", class: "w-12 h-12 text-muted mx-auto" %>
+        <p class="text-muted font-mono text-sm">暂无序列号</p>
+        <p class="text-muted font-mono text-xs">完成支付后，序列号将由管理员分配到此页面</p>
+        <%= link_to "查看套餐", root_path(anchor: "pricing"), class: "inline-block mt-2 text-xs font-mono text-accent hover:underline" %>
+      </div>
+    </div>
+
+  <% else %>
+    <div class="space-y-4">
+      <% @serial_keys.each do |sk| %>
+        <div class="card" style="border-color: hsl(220 16% 28%)">
+          <div class="card-body">
+            <!-- 顶行：产品名 + 状态 -->
+            <div class="flex items-center justify-between gap-4 mb-5">
+              <div class="flex items-center gap-2">
+                <%= lucide_icon "zap", class: "w-4 h-4 text-accent flex-shrink-0" %>
+                <span class="font-semibold font-mono text-primary">青狮龙虾 QingClaw</span>
+                <% if sk.plan.present? %>
+                  <span class="text-xs font-mono px-2 py-0.5 rounded-full border border-border text-muted">
+                    <%= sk.plan_label %>
+                  </span>
+                <% end %>
+              </div>
+              <span class="text-xs font-mono px-2 py-1 border rounded flex-shrink-0
+                <%= sk.expired?  ? 'text-red-400 border-red-400/40 bg-red-400/10' :
+                    sk.active?   ? 'text-green-400 border-green-400/40 bg-green-400/10' :
+                                   'text-yellow-400 border-yellow-400/40 bg-yellow-400/10' %>">
+                <%= sk.status_label %>
+              </span>
+            </div>
+
+            <!-- 序列号 -->
+            <div class="mb-5">
+              <label class="form-label">序列号</label>
+              <div class="flex items-center gap-2 mt-1">
+                <code class="flex-1 font-mono text-sm text-primary bg-[hsl(var(--color-surface-elevated))] px-3 py-2 rounded-lg border border-border tracking-widest select-all">
+                  <%= sk.serial_key %>
+                </code>
+                <!-- 复制按钮 -->
+                <button
+                  type="button"
+                  data-copy="<%= sk.serial_key %>"
+                  onclick="
+                    navigator.clipboard.writeText(this.dataset.copy).then(() => {
+                      this.innerHTML = '<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><polyline points=\'20 6 9 17 4 12\'/></svg>';
+                      setTimeout(() => { this.innerHTML = '<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><rect width=\'14\' height=\'14\' x=\'8\' y=\'8\' rx=\'2\' ry=\'2\'/><path d=\'M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2\'/></svg>'; }, 2000);
+                    });
+                  "
+                  class="flex-shrink-0 p-2 rounded-lg border border-border text-muted hover:text-primary hover:border-primary/40 transition-colors"
+                  title="复制序列号"
+                >
+                  <%= lucide_icon "copy", class: "w-4 h-4" %>
+                </button>
+              </div>
+            </div>
+
+            <!-- 日期信息 -->
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="form-label">激活日期</label>
+                <div class="text-primary font-mono text-sm mt-1">
+                  <% if sk.activated_at %>
+                    <%= sk.activated_at.in_time_zone("Beijing").strftime("%Y-%m-%d") %>
+                  <% else %>
+                    <span class="text-muted">—</span>
+                  <% end %>
+                </div>
+              </div>
+              <div>
+                <label class="form-label">到期日期</label>
+                <div class="font-mono text-sm mt-1 <%= sk.expired? ? 'text-red-400' : 'text-primary' %>">
+                  <% if sk.expires_at %>
+                    <%= sk.expires_at.in_time_zone("Beijing").strftime("%Y-%m-%d") %>
+                  <% else %>
+                    <span class="text-muted">永久有效</span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+            <% if sk.notes.present? %>
+              <div class="mt-4 pt-4 border-t border-border">
+                <label class="form-label">备注</label>
+                <p class="text-secondary font-mono text-xs mt-1"><%= sk.notes %></p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- 底部提示 -->
+    <div class="mt-6 text-center">
+      <p class="text-muted text-xs font-mono">序列号如有问题，请联系创始人镐赞</p>
+    </div>
+  <% end %>
+</div>

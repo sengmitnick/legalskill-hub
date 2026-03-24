@@ -38,6 +38,11 @@ Rails.application.routes.draw do
   # 我的订单
   resources :orders, only: [:index]
 
+  # 我的工具（序列号列表）
+  namespace :my do
+    resource :tools, only: [:show], controller: "tools"
+  end
+
   resources :payments, only: [] do
     member do
       get :pay

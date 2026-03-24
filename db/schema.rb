@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_24_100139) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_24_101041) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -260,6 +260,18 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_24_100139) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "resource_tag"
+  end
+
+  create_table "serial_keys", force: :cascade do |t|
+    t.string "serial_key"
+    t.integer "user_id"
+    t.string "plan"
+    t.datetime "activated_at"
+    t.datetime "expires_at"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["serial_key"], name: "index_serial_keys_on_serial_key", unique: true
   end
 
   create_table "sessions", force: :cascade do |t|
