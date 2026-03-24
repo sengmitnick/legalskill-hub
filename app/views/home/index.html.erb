@@ -668,12 +668,6 @@
     <div class="mb-12 text-center">
       <h2 class="section-title !mb-0">线上课程</h2>
       <p class="section-subtitle mt-2">实战性的龙虾技能使用视频，掌握核心技能</p>
-      <% unless user_signed_in? %>
-        <%= link_to "#pricing", class: "inline-flex items-center gap-1.5 mt-3 px-4 py-1.5 rounded-full border border-primary/40 text-sm font-semibold text-primary hover:bg-primary/10 transition-colors" do %>
-          购买后 方可报名
-          <%= lucide_icon "arrow-right", class: "w-3.5 h-3.5" %>
-        <% end %>
-      <% end %>
     </div>
 
     <!-- Category Filter -->
