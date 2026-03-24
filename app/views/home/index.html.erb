@@ -458,7 +458,13 @@
 
     <!-- Section Header -->
     <div class="mb-10 text-center">
-      <h2 class="font-mono text-3xl md:text-4xl font-bold text-primary tracking-tight mb-3">交付 <%= @delivered_skills.count %> 项技能</h2>
+      <h2 class="font-mono text-3xl md:text-4xl font-bold text-primary tracking-tight mb-3">
+        交付 <%= @delivered_skills.count %> 项技能
+        <span class="inline-flex items-center gap-1 ml-2 px-2 py-0.5 text-xs font-mono font-normal rounded-full align-middle" style="background: hsl(174,100%,44%,0.12); color: hsl(174,100%,44%); border: 1px solid hsl(174,100%,44%,0.3);">
+          <span class="w-1.5 h-1.5 rounded-full animate-pulse inline-block" style="background: hsl(174,100%,44%)"></span>
+          持续增加中
+        </span>
+      </h2>
       <p class="text-secondary text-base max-w-xl mx-auto">每一个 Skill 均由律师参与设计，覆盖真实执业场景——交付即可上手，开箱即用</p>
     </div>
 
